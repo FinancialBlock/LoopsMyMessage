@@ -1,9 +1,19 @@
-import React, {useState} from "react";
-import {ChatRoom, User} from "../../types";
-import {View, Text, Image, SafeAreaView,TouchableWithoutFeedback, ScrollView} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {
+    View,
+    Text,
+    Image,
+    TouchableWithoutFeedback
+} from "react-native";
+import { ChatRoom } from "../../types";
 import styles from "./style";
 import moment from "moment";
-import {useNavigation} from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
+import {
+    Auth,
+    graphqlOperation,
+    API
+} from 'aws-amplify';
 
 export type ChatListItemProps = {
     chatRoom: ChatRoom;
@@ -11,39 +21,54 @@ export type ChatListItemProps = {
 
 const ChatListItem = (props: ChatListItemProps) => {
     const { chatRoom } = props;
+    const [ otherUser, setOtherUser] = useState(null);
 
     const navigation = useNavigation();
 
-    const user = chatRoom.users[1];
+
+    useEffect(() => {
+        const getOtherUser = async () => {
+            const userInfo = await Auth.currentAuthenticatedUser();
+            if (chatRoom.chatRoomUsers.items[0].user.id === userInfo.attributes.sub) {
+                setOtherUser(chatRoom.chatRoomUsers.items[1].user);
+                (chatRoom)
+            } else {
+                setOtherUser(chatRoom.chatRoomUsers.items[0].user);
+            }
+        }
+        getOtherUser();
+    }, [])
 
     const onClick = () => {
-        navigation.navigate('Messages', {id: chatRoom.id, name:user.name})
+        navigation.navigate('Messages', {
+            id: chatRoom.id,
+            name: otherUser.name,
+        })
+    }
+
+    if (!otherUser) {
+        return null;
     }
 
     return (
         <TouchableWithoutFeedback onPress={onClick}>
             <View style={styles.container}>
-                    <View style={styles.lefContainer}>
-                    <Image source={{ uri: user.imageUri }} style={styles.avatar}/>
+                <View style={styles.lefContainer}>
+                    <Image source={{ uri: otherUser.imageUri }} style={styles.avatar}/>
 
-                <View style={styles.midContainer}>
-                    <Text style={styles.username}>{user.name}</Text>
-                    <Text
-                        numberOfLines={2}
-                        style={styles.lastMessage}>
-                        {chatRoom.lastMessage.content}
-                    </Text>
+                    <View style={styles.midContainer}>
+                        <Text style={styles.username}>{otherUser.name}</Text>
+                        <Text numberOfLines={2} style={styles.lastMessage}>{chatRoom.lastMessage ? chatRoom.lastMessage.content : ""}</Text>
+                    </View>
+
                 </View>
 
-                     </View>
-                    <Text style={styles.time}>
-                        {chatRoom.lastMessage && moment(chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}
-                    </Text>
+                <Text style={styles.time}>
+                    {chatRoom.lastMessage && moment(chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}
+                </Text>
             </View>
         </TouchableWithoutFeedback>
     )
 };
-
-
 
 export default ChatListItem;

@@ -19,32 +19,6 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      posts {
-        items {
-          id
-          videoUri
-          description
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      storys {
-        items {
-          id
-          type
-          videoUri
-          text
-          imageUri
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -63,12 +37,6 @@ export const listUsers = /* GraphQL */ `
         imageUri
         status
         chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
           nextToken
         }
         createdAt
@@ -90,12 +58,6 @@ export const getChatRoomUser = /* GraphQL */ `
         imageUri
         status
         chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
           nextToken
         }
         createdAt
@@ -258,12 +220,6 @@ export const getMessage = /* GraphQL */ `
         chatRoomUser {
           nextToken
         }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -318,183 +274,6 @@ export const listMessages = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
-      id
-      videoUri
-      description
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        videoUri
-        description
-        userID
-        user {
-          id
-          name
-          imageUri
-          status
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getSong = /* GraphQL */ `
-  query GetSong($id: ID!) {
-    getSong(id: $id) {
-      id
-      name
-      imageUri
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listSongs = /* GraphQL */ `
-  query ListSongs(
-    $filter: ModelSongFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listSongs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getStory = /* GraphQL */ `
-  query GetStory($id: ID!) {
-    getStory(id: $id) {
-      id
-      type
-      videoUri
-      text
-      imageUri
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listStories = /* GraphQL */ `
-  query ListStories(
-    $filter: ModelStoryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listStories(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        type
-        videoUri
-        text
-        imageUri
-        userID
-        user {
-          id
-          name
-          imageUri
-          status
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        createdAt
         updatedAt
       }
       nextToken

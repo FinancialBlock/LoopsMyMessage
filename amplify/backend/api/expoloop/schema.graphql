@@ -4,8 +4,6 @@ type User @model {
   imageUri: String
   status: String
   chatRoomUser: [ChatRoomUser] @connection(keyName: "byUser", fields: ["id"])
-  posts: [Post] @connection(keyName: "byUser", fields: ["id"])
-  storys: [Story] @connection(keyName: "byUser", fields: ["id"])
 }
 
 type ChatRoomUser
@@ -22,9 +20,9 @@ type ChatRoomUser
 type ChatRoom @model {
   id: ID!
   chatRoomUsers: [ChatRoomUser] @connection(keyName: "byChatRoom", fields: ["id"])
-  messages: [Message]  @connection(keyName: "byChatRoom", fields: ["id"])
-  lastMessageID: ID!
-  lastMessage: Message @connection(fields: ["lastMessageID"])
+    messages: [Message]  @connection(keyName: "byChatRoom", fields: ["id"])
+      lastMessageID: ID!
+      lastMessage: Message @connection(fields: ["lastMessageID"])
 }
 
 type Message
@@ -41,35 +39,4 @@ type Message
   user: User @connection(fields: ["userID"])
   chatRoom: ChatRoom @connection(fields: ["chatRoomID"])
 }
-type Post @model @key(name: "byUser", fields: ["userID"]) {
-  id: ID!
-  videoUri: String!
-  description: String!
 
-
-  userID: ID!
-  user: User @connection(fields: ["userID"])
-
-  songID: ID!
-  song: Song @connection(fields: ["songID"])
-}
-
-type Song @model {
-  id: ID!
-  name: String!
-  imageUri: String
-}
-
-type Story @model @key(name: "byUser", fields: ["userID"]) {
-  id: ID!
-  type: String
-  videoUri: String
-  text: String
-  imageUri: String
-  userID: ID!
-  user: User @connection(fields: ["userID"])
-
-  songID: ID
-  song: Song @connection(fields: ["songID"])
-
-  }

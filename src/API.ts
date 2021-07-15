@@ -65,8 +65,6 @@ export type User = {
   imageUri?: string | null,
   status?: string | null,
   chatRoomUser?: ModelChatRoomUserConnection | null,
-  posts?: ModelPostConnection | null,
-  storys?: ModelStoryConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -114,55 +112,6 @@ export type Message = {
   chatRoomID: string,
   user?: User | null,
   chatRoom?: ChatRoom | null,
-  updatedAt: string,
-};
-
-export type ModelPostConnection = {
-  __typename: "ModelPostConnection",
-  items?:  Array<Post | null > | null,
-  nextToken?: string | null,
-};
-
-export type Post = {
-  __typename: "Post",
-  id: string,
-  videoUri: string,
-  description: string,
-  userID: string,
-  user?: User | null,
-  songID: string,
-  song?: Song | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type Song = {
-  __typename: "Song",
-  id: string,
-  name: string,
-  imageUri?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelStoryConnection = {
-  __typename: "ModelStoryConnection",
-  items?:  Array<Story | null > | null,
-  nextToken?: string | null,
-};
-
-export type Story = {
-  __typename: "Story",
-  id: string,
-  type?: string | null,
-  videoUri?: string | null,
-  text?: string | null,
-  imageUri?: string | null,
-  userID: string,
-  user?: User | null,
-  songID?: string | null,
-  song?: Song | null,
-  createdAt: string,
   updatedAt: string,
 };
 
@@ -268,96 +217,6 @@ export type DeleteMessageInput = {
   id: string,
 };
 
-export type CreatePostInput = {
-  id?: string | null,
-  videoUri: string,
-  description: string,
-  userID: string,
-  songID: string,
-};
-
-export type ModelPostConditionInput = {
-  videoUri?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  songID?: ModelIDInput | null,
-  and?: Array< ModelPostConditionInput | null > | null,
-  or?: Array< ModelPostConditionInput | null > | null,
-  not?: ModelPostConditionInput | null,
-};
-
-export type UpdatePostInput = {
-  id: string,
-  videoUri?: string | null,
-  description?: string | null,
-  userID?: string | null,
-  songID?: string | null,
-};
-
-export type DeletePostInput = {
-  id: string,
-};
-
-export type CreateSongInput = {
-  id?: string | null,
-  name: string,
-  imageUri?: string | null,
-};
-
-export type ModelSongConditionInput = {
-  name?: ModelStringInput | null,
-  imageUri?: ModelStringInput | null,
-  and?: Array< ModelSongConditionInput | null > | null,
-  or?: Array< ModelSongConditionInput | null > | null,
-  not?: ModelSongConditionInput | null,
-};
-
-export type UpdateSongInput = {
-  id: string,
-  name?: string | null,
-  imageUri?: string | null,
-};
-
-export type DeleteSongInput = {
-  id: string,
-};
-
-export type CreateStoryInput = {
-  id?: string | null,
-  type?: string | null,
-  videoUri?: string | null,
-  text?: string | null,
-  imageUri?: string | null,
-  userID: string,
-  songID?: string | null,
-};
-
-export type ModelStoryConditionInput = {
-  type?: ModelStringInput | null,
-  videoUri?: ModelStringInput | null,
-  text?: ModelStringInput | null,
-  imageUri?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  songID?: ModelIDInput | null,
-  and?: Array< ModelStoryConditionInput | null > | null,
-  or?: Array< ModelStoryConditionInput | null > | null,
-  not?: ModelStoryConditionInput | null,
-};
-
-export type UpdateStoryInput = {
-  id: string,
-  type?: string | null,
-  videoUri?: string | null,
-  text?: string | null,
-  imageUri?: string | null,
-  userID?: string | null,
-  songID?: string | null,
-};
-
-export type DeleteStoryInput = {
-  id: string,
-};
-
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -408,45 +267,6 @@ export type ModelMessageFilterInput = {
   not?: ModelMessageFilterInput | null,
 };
 
-export type ModelPostFilterInput = {
-  id?: ModelIDInput | null,
-  videoUri?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  songID?: ModelIDInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
-};
-
-export type ModelSongFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  imageUri?: ModelStringInput | null,
-  and?: Array< ModelSongFilterInput | null > | null,
-  or?: Array< ModelSongFilterInput | null > | null,
-  not?: ModelSongFilterInput | null,
-};
-
-export type ModelSongConnection = {
-  __typename: "ModelSongConnection",
-  items?:  Array<Song | null > | null,
-  nextToken?: string | null,
-};
-
-export type ModelStoryFilterInput = {
-  id?: ModelIDInput | null,
-  type?: ModelStringInput | null,
-  videoUri?: ModelStringInput | null,
-  text?: ModelStringInput | null,
-  imageUri?: ModelStringInput | null,
-  userID?: ModelIDInput | null,
-  songID?: ModelIDInput | null,
-  and?: Array< ModelStoryFilterInput | null > | null,
-  or?: Array< ModelStoryFilterInput | null > | null,
-  not?: ModelStoryFilterInput | null,
-};
-
 export type ModelStringKeyConditionInput = {
   eq?: string | null,
   le?: string | null,
@@ -487,36 +307,6 @@ export type CreateUserMutation = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items?:  Array< {
-        __typename: "Post",
-        id: string,
-        videoUri: string,
-        description: string,
-        userID: string,
-        songID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    storys?:  {
-      __typename: "ModelStoryConnection",
-      items?:  Array< {
-        __typename: "Story",
-        id: string,
-        type?: string | null,
-        videoUri?: string | null,
-        text?: string | null,
-        imageUri?: string | null,
-        userID: string,
-        songID?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -541,36 +331,6 @@ export type UpdateUserMutation = {
         id: string,
         userID: string,
         chatRoomID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items?:  Array< {
-        __typename: "Post",
-        id: string,
-        videoUri: string,
-        description: string,
-        userID: string,
-        songID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    storys?:  {
-      __typename: "ModelStoryConnection",
-      items?:  Array< {
-        __typename: "Story",
-        id: string,
-        type?: string | null,
-        videoUri?: string | null,
-        text?: string | null,
-        imageUri?: string | null,
-        userID: string,
-        songID?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -605,36 +365,6 @@ export type DeleteUserMutation = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items?:  Array< {
-        __typename: "Post",
-        id: string,
-        videoUri: string,
-        description: string,
-        userID: string,
-        songID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    storys?:  {
-      __typename: "ModelStoryConnection",
-      items?:  Array< {
-        __typename: "Story",
-        id: string,
-        type?: string | null,
-        videoUri?: string | null,
-        text?: string | null,
-        imageUri?: string | null,
-        userID: string,
-        songID?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -659,14 +389,6 @@ export type CreateChatRoomUserMutation = {
       status?: string | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -722,14 +444,6 @@ export type UpdateChatRoomUserMutation = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -781,14 +495,6 @@ export type DeleteChatRoomUserMutation = {
       status?: string | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1041,14 +747,6 @@ export type CreateMessageMutation = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1101,14 +799,6 @@ export type UpdateMessageMutation = {
       status?: string | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1165,14 +855,6 @@ export type DeleteMessageMutation = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1204,342 +886,6 @@ export type DeleteMessageMutation = {
   } | null,
 };
 
-export type CreatePostMutationVariables = {
-  input: CreatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type CreatePostMutation = {
-  createPost?:  {
-    __typename: "Post",
-    id: string,
-    videoUri: string,
-    description: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID: string,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdatePostMutationVariables = {
-  input: UpdatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type UpdatePostMutation = {
-  updatePost?:  {
-    __typename: "Post",
-    id: string,
-    videoUri: string,
-    description: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID: string,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeletePostMutationVariables = {
-  input: DeletePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type DeletePostMutation = {
-  deletePost?:  {
-    __typename: "Post",
-    id: string,
-    videoUri: string,
-    description: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID: string,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateSongMutationVariables = {
-  input: CreateSongInput,
-  condition?: ModelSongConditionInput | null,
-};
-
-export type CreateSongMutation = {
-  createSong?:  {
-    __typename: "Song",
-    id: string,
-    name: string,
-    imageUri?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateSongMutationVariables = {
-  input: UpdateSongInput,
-  condition?: ModelSongConditionInput | null,
-};
-
-export type UpdateSongMutation = {
-  updateSong?:  {
-    __typename: "Song",
-    id: string,
-    name: string,
-    imageUri?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteSongMutationVariables = {
-  input: DeleteSongInput,
-  condition?: ModelSongConditionInput | null,
-};
-
-export type DeleteSongMutation = {
-  deleteSong?:  {
-    __typename: "Song",
-    id: string,
-    name: string,
-    imageUri?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateStoryMutationVariables = {
-  input: CreateStoryInput,
-  condition?: ModelStoryConditionInput | null,
-};
-
-export type CreateStoryMutation = {
-  createStory?:  {
-    __typename: "Story",
-    id: string,
-    type?: string | null,
-    videoUri?: string | null,
-    text?: string | null,
-    imageUri?: string | null,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID?: string | null,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateStoryMutationVariables = {
-  input: UpdateStoryInput,
-  condition?: ModelStoryConditionInput | null,
-};
-
-export type UpdateStoryMutation = {
-  updateStory?:  {
-    __typename: "Story",
-    id: string,
-    type?: string | null,
-    videoUri?: string | null,
-    text?: string | null,
-    imageUri?: string | null,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID?: string | null,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteStoryMutationVariables = {
-  input: DeleteStoryInput,
-  condition?: ModelStoryConditionInput | null,
-};
-
-export type DeleteStoryMutation = {
-  deleteStory?:  {
-    __typename: "Story",
-    id: string,
-    type?: string | null,
-    videoUri?: string | null,
-    text?: string | null,
-    imageUri?: string | null,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID?: string | null,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -1558,36 +904,6 @@ export type GetUserQuery = {
         id: string,
         userID: string,
         chatRoomID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items?:  Array< {
-        __typename: "Post",
-        id: string,
-        videoUri: string,
-        description: string,
-        userID: string,
-        songID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    storys?:  {
-      __typename: "ModelStoryConnection",
-      items?:  Array< {
-        __typename: "Story",
-        id: string,
-        type?: string | null,
-        videoUri?: string | null,
-        text?: string | null,
-        imageUri?: string | null,
-        userID: string,
-        songID?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -1617,14 +933,6 @@ export type ListUsersQuery = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -1650,14 +958,6 @@ export type GetChatRoomUserQuery = {
       status?: string | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1852,14 +1152,6 @@ export type GetMessageQuery = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1929,218 +1221,6 @@ export type ListMessagesQuery = {
   } | null,
 };
 
-export type GetPostQueryVariables = {
-  id: string,
-};
-
-export type GetPostQuery = {
-  getPost?:  {
-    __typename: "Post",
-    id: string,
-    videoUri: string,
-    description: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID: string,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListPostsQuery = {
-  listPosts?:  {
-    __typename: "ModelPostConnection",
-    items?:  Array< {
-      __typename: "Post",
-      id: string,
-      videoUri: string,
-      description: string,
-      userID: string,
-      user?:  {
-        __typename: "User",
-        id: string,
-        name: string,
-        imageUri?: string | null,
-        status?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      songID: string,
-      song?:  {
-        __typename: "Song",
-        id: string,
-        name: string,
-        imageUri?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetSongQueryVariables = {
-  id: string,
-};
-
-export type GetSongQuery = {
-  getSong?:  {
-    __typename: "Song",
-    id: string,
-    name: string,
-    imageUri?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListSongsQueryVariables = {
-  filter?: ModelSongFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListSongsQuery = {
-  listSongs?:  {
-    __typename: "ModelSongConnection",
-    items?:  Array< {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetStoryQueryVariables = {
-  id: string,
-};
-
-export type GetStoryQuery = {
-  getStory?:  {
-    __typename: "Story",
-    id: string,
-    type?: string | null,
-    videoUri?: string | null,
-    text?: string | null,
-    imageUri?: string | null,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID?: string | null,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListStoriesQueryVariables = {
-  filter?: ModelStoryFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListStoriesQuery = {
-  listStories?:  {
-    __typename: "ModelStoryConnection",
-    items?:  Array< {
-      __typename: "Story",
-      id: string,
-      type?: string | null,
-      videoUri?: string | null,
-      text?: string | null,
-      imageUri?: string | null,
-      userID: string,
-      user?:  {
-        __typename: "User",
-        id: string,
-        name: string,
-        imageUri?: string | null,
-        status?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      songID?: string | null,
-      song?:  {
-        __typename: "Song",
-        id: string,
-        name: string,
-        imageUri?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type MessagesByChatRoomQueryVariables = {
   chatRoomID?: string | null,
   createdAt?: ModelStringKeyConditionInput | null,
@@ -2201,36 +1281,6 @@ export type OnCreateUserSubscription = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items?:  Array< {
-        __typename: "Post",
-        id: string,
-        videoUri: string,
-        description: string,
-        userID: string,
-        songID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    storys?:  {
-      __typename: "ModelStoryConnection",
-      items?:  Array< {
-        __typename: "Story",
-        id: string,
-        type?: string | null,
-        videoUri?: string | null,
-        text?: string | null,
-        imageUri?: string | null,
-        userID: string,
-        songID?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2250,36 +1300,6 @@ export type OnUpdateUserSubscription = {
         id: string,
         userID: string,
         chatRoomID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items?:  Array< {
-        __typename: "Post",
-        id: string,
-        videoUri: string,
-        description: string,
-        userID: string,
-        songID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    storys?:  {
-      __typename: "ModelStoryConnection",
-      items?:  Array< {
-        __typename: "Story",
-        id: string,
-        type?: string | null,
-        videoUri?: string | null,
-        text?: string | null,
-        imageUri?: string | null,
-        userID: string,
-        songID?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -2309,36 +1329,6 @@ export type OnDeleteUserSubscription = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items?:  Array< {
-        __typename: "Post",
-        id: string,
-        videoUri: string,
-        description: string,
-        userID: string,
-        songID: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
-    storys?:  {
-      __typename: "ModelStoryConnection",
-      items?:  Array< {
-        __typename: "Story",
-        id: string,
-        type?: string | null,
-        videoUri?: string | null,
-        text?: string | null,
-        imageUri?: string | null,
-        userID: string,
-        songID?: string | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null > | null,
-      nextToken?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2358,14 +1348,6 @@ export type OnCreateChatRoomUserSubscription = {
       status?: string | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -2416,14 +1398,6 @@ export type OnUpdateChatRoomUserSubscription = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2470,14 +1444,6 @@ export type OnDeleteChatRoomUserSubscription = {
       status?: string | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -2710,14 +1676,6 @@ export type OnCreateMessageSubscription = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2765,14 +1723,6 @@ export type OnUpdateMessageSubscription = {
       status?: string | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -2824,14 +1774,6 @@ export type OnDeleteMessageSubscription = {
         __typename: "ModelChatRoomUserConnection",
         nextToken?: string | null,
       } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2859,297 +1801,6 @@ export type OnDeleteMessageSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreatePostSubscription = {
-  onCreatePost?:  {
-    __typename: "Post",
-    id: string,
-    videoUri: string,
-    description: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID: string,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdatePostSubscription = {
-  onUpdatePost?:  {
-    __typename: "Post",
-    id: string,
-    videoUri: string,
-    description: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID: string,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeletePostSubscription = {
-  onDeletePost?:  {
-    __typename: "Post",
-    id: string,
-    videoUri: string,
-    description: string,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID: string,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateSongSubscription = {
-  onCreateSong?:  {
-    __typename: "Song",
-    id: string,
-    name: string,
-    imageUri?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateSongSubscription = {
-  onUpdateSong?:  {
-    __typename: "Song",
-    id: string,
-    name: string,
-    imageUri?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteSongSubscription = {
-  onDeleteSong?:  {
-    __typename: "Song",
-    id: string,
-    name: string,
-    imageUri?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateStorySubscription = {
-  onCreateStory?:  {
-    __typename: "Story",
-    id: string,
-    type?: string | null,
-    videoUri?: string | null,
-    text?: string | null,
-    imageUri?: string | null,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID?: string | null,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateStorySubscription = {
-  onUpdateStory?:  {
-    __typename: "Story",
-    id: string,
-    type?: string | null,
-    videoUri?: string | null,
-    text?: string | null,
-    imageUri?: string | null,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID?: string | null,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteStorySubscription = {
-  onDeleteStory?:  {
-    __typename: "Story",
-    id: string,
-    type?: string | null,
-    videoUri?: string | null,
-    text?: string | null,
-    imageUri?: string | null,
-    userID: string,
-    user?:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      status?: string | null,
-      chatRoomUser?:  {
-        __typename: "ModelChatRoomUserConnection",
-        nextToken?: string | null,
-      } | null,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      storys?:  {
-        __typename: "ModelStoryConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    songID?: string | null,
-    song?:  {
-      __typename: "Song",
-      id: string,
-      name: string,
-      imageUri?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    createdAt: string,
     updatedAt: string,
   } | null,
 };

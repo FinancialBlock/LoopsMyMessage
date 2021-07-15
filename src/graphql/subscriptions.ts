@@ -19,32 +19,6 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
-      posts {
-        items {
-          id
-          videoUri
-          description
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      storys {
-        items {
-          id
-          type
-          videoUri
-          text
-          imageUri
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -62,32 +36,6 @@ export const onUpdateUser = /* GraphQL */ `
           id
           userID
           chatRoomID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      posts {
-        items {
-          id
-          videoUri
-          description
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      storys {
-        items {
-          id
-          type
-          videoUri
-          text
-          imageUri
-          userID
-          songID
           createdAt
           updatedAt
         }
@@ -115,32 +63,6 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      posts {
-        items {
-          id
-          videoUri
-          description
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      storys {
-        items {
-          id
-          type
-          videoUri
-          text
-          imageUri
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -158,12 +80,6 @@ export const onCreateChatRoomUser = /* GraphQL */ `
         imageUri
         status
         chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
           nextToken
         }
         createdAt
@@ -208,12 +124,6 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
         chatRoomUser {
           nextToken
         }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -254,12 +164,6 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
         imageUri
         status
         chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
           nextToken
         }
         createdAt
@@ -465,12 +369,6 @@ export const onCreateMessage = /* GraphQL */ `
         chatRoomUser {
           nextToken
         }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -512,12 +410,6 @@ export const onUpdateMessage = /* GraphQL */ `
         imageUri
         status
         chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
           nextToken
         }
         createdAt
@@ -563,12 +455,6 @@ export const onDeleteMessage = /* GraphQL */ `
         chatRoomUser {
           nextToken
         }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -592,267 +478,6 @@ export const onDeleteMessage = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      updatedAt
-    }
-  }
-`;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
-      id
-      videoUri
-      description
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
-      id
-      videoUri
-      description
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
-      id
-      videoUri
-      description
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateSong = /* GraphQL */ `
-  subscription OnCreateSong {
-    onCreateSong {
-      id
-      name
-      imageUri
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateSong = /* GraphQL */ `
-  subscription OnUpdateSong {
-    onUpdateSong {
-      id
-      name
-      imageUri
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteSong = /* GraphQL */ `
-  subscription OnDeleteSong {
-    onDeleteSong {
-      id
-      name
-      imageUri
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateStory = /* GraphQL */ `
-  subscription OnCreateStory {
-    onCreateStory {
-      id
-      type
-      videoUri
-      text
-      imageUri
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateStory = /* GraphQL */ `
-  subscription OnUpdateStory {
-    onUpdateStory {
-      id
-      type
-      videoUri
-      text
-      imageUri
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteStory = /* GraphQL */ `
-  subscription OnDeleteStory {
-    onDeleteStory {
-      id
-      type
-      videoUri
-      text
-      imageUri
-      userID
-      user {
-        id
-        name
-        imageUri
-        status
-        chatRoomUser {
-          nextToken
-        }
-        posts {
-          nextToken
-        }
-        storys {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      createdAt
       updatedAt
     }
   }
