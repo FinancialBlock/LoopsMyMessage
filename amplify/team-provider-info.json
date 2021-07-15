@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-expoloop-dev-213147-authRole",
+      "UnauthRoleArn": "arn:aws:iam::761722907844:role/amplify-expoloop-dev-213147-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::761722907844:role/amplify-expoloop-dev-213147-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-expoloop-dev-213147-deployment",
+      "UnauthRoleName": "amplify-expoloop-dev-213147-unauthRole",
+      "StackName": "amplify-expoloop-dev-213147",
+      "StackId": "arn:aws:cloudformation:us-east-2:761722907844:stack/amplify-expoloop-dev-213147/cf94e380-e514-11eb-a780-0a1fb79b980c",
+      "AmplifyAppId": "d286zvoceya0qz"
+    },
+    "categories": {
+      "auth": {
+        "expoloop7fd611c1": {}
+      }
+    }
+  }
+}

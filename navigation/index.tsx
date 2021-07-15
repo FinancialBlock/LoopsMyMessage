@@ -7,11 +7,16 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
+import {View, Text} from "react-native";
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import Colors from "../constants/Colors";
+import {Feather, FontAwesome5, MaterialCommunityIcons, MaterialIcons, Octicons} from "@expo/vector-icons";
+import ChatRoomScreens from "../screens/ChatRoom";
+import ContactScreen from "../screens/ContactScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -26,12 +31,63 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
-
+//root header shows all top navs
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+    <Stack.Navigator screenOptions={{
+        headerStyle: {
+            backgroundColor: Colors.light.tint,
+            shadowOpacity: 0,
+            elevation: 0,
+        },
+
+        headerTintColor: Colors.light.background,
+        headerTitleAlign: 'left',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        }
+    }}>
+      <Stack.Screen name="Root"
+                    component={BottomTabNavigator}
+                    options={{
+                        title: "Loops",
+                        headerRight: () => (
+                            <View style={{
+                                flexDirection:'row',
+                        width: 60, justifyContent: 'space-between', marginRight: 10, }} >
+                                <Octicons name="search" size={24} color={'white'} />
+                                <Feather name="menu" size={24} color="white" />
+                            </View>
+
+                        )
+                    }}
+
+      />
+
+        <Stack.Screen
+            name="Messages"
+            component={ChatRoomScreens}
+            options={({ route })  => ({
+                title: route.params.name,
+                headerRight: () => (
+                    <View style={{
+                        flexDirection: 'row',
+                        width: 100,
+                        justifyContent: 'space-between',
+                        marginRight: 10,
+                    }}>
+                        <FontAwesome5 name="video" size={22} color={'white'} />
+                        <MaterialIcons name="call" size={22} color={'white'} />
+                        <MaterialCommunityIcons name="dots-vertical" size={22} color={'white'} />
+                    </View>
+                )
+            })}
+        />
+        <Stack.Screen
+            name="Contacts"
+            component={ContactScreen}
+        />
+        <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
 }
