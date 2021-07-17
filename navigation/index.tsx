@@ -66,6 +66,11 @@ function RootNavigator() {
                     }}
 
       />
+        <Stack.Screen
+            name="Storys"
+            component={FleetScreen}
+
+        />
 
         <Stack.Screen
             name="Messages"
@@ -89,11 +94,9 @@ function RootNavigator() {
         <Stack.Screen
             name="Contacts"
             component={ContactScreen}
+
         />
-        <Stack.Screen
-            name="Storys"
-            component={FleetScreen}
-        />
+
         <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

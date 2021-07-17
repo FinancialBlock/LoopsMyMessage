@@ -28,11 +28,13 @@ export default function BottomTabNavigator() {
       tabBarOptions={{ activeTintColor: Colors[colorScheme].background ,
           style: {
           backgroundColor: Colors[colorScheme].tint
+
       },
       indicatorStyle: {
       backGroundColor: Colors[colorScheme].background, height: 5,
       },
           showIcon: true,
+          
 
       }}>
       <BottomTab.Screen

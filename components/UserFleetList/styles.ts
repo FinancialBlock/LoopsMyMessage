@@ -4,9 +4,6 @@ import Colors from "../../constants/Colors";
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-
-
-
     },
     text: {
         fontFamily: 'HelveticaNeue',
@@ -16,7 +13,6 @@ const styles = StyleSheet.create({
         width: 70,
         height: 80,
         marginTop: 10,
-        borderRadius: 30,
         padding: 15,
         borderWidth: 3,
         borderColor: '#449bd4',

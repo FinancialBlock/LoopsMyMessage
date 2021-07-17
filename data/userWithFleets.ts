@@ -4,6 +4,7 @@ export default [
         "imageUri": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/10.png",
         "name": "Vadim Savin",
         "username": "Vadim",
+        "text": "Hey this this my story",
         "createdAt": "2020-09-04T12:05:39.955Z",
         "fleets": {
             "items": [
@@ -11,7 +12,8 @@ export default [
                     "id": "0",
                     "type": "IMAGE",
                     "createdAt": "2020-11-04T12:05:39.955Z",
-                    "imageUri": "https://i1.sndcdn.com/avatars-CkLqCmTeMPSVzN50-GiKLzA-t500x500.jpg"
+                    "imageUri": "https://i1.sndcdn.com/avatars-CkLqCmTeMPSVzN50-GiKLzA-t500x500.jpg",
+                    "text": "Hey this this my story",
                 },
                 {
                     "id": "1",

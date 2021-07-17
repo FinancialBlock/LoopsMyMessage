@@ -45,7 +45,7 @@ export default function ChatsScreen() {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
+
             <UserFleetList/>
             <FlatList
                 style={{width: '100%'}}
@@ -54,7 +54,7 @@ export default function ChatsScreen() {
                 keyExtractor={(item) => item.id}
                 showsHorizontalScrollIndicator={false}
             />
-            </ScrollView>
+
             <NewMessageButton />
         </View>
     );

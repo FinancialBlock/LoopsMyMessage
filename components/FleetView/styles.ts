@@ -1,36 +1,63 @@
 import { StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
+import {Dimensions} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        margin: 10,
-        alignItems: 'flex-end',
+        alignItems: 'center',
+        justifyContent: "center",
+        backgroundColor: '#001933',
+        width: '100%',
+        height: Dimensions.get('window').height - 80,
     },
-    mainContainer: {
+    text: {
+        color: 'white',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: 20,
+
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+    },
+    userHeaderContainer: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        justifyContent: 'flex-start',
+        width: '100%',
+        alignItems: 'center',
+        position: 'absolute',
         padding: 10,
-        borderRadius: 25,
-        marginRight: 10,
-        flex: 1,
-        alignItems: 'flex-end',
+        top: -10,
     },
-    textInput: {
-        flex: 1,
-        marginHorizontal: 10
+    userNames: {
+        marginLeft: 10,
     },
-    icon: {
-        marginHorizontal: 5,
+    name: {
+        color: "#efefef",
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 5,
+    },
+    username: {
+        color: "#efefef",
+        fontSize: 18,
+    },
+    time: {
+        color: "#efefef",
+        fontSize: 18,
+        marginLeft: 10,
     },
     buttonContainer: {
-        backgroundColor: Colors.light.tint,
-        borderRadius: 25,
-        width: 50,
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        flexDirection: 'row'
     }
-})
+});
+
 
 export default styles;

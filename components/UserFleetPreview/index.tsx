@@ -21,6 +21,7 @@ const UserFleetPreview = (props: UserFleetPreviewProps) => {
 
 
 
+
     return(
       <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
