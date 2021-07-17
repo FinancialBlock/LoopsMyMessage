@@ -15,8 +15,11 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import Colors from "../constants/Colors";
 import {Feather, FontAwesome5, MaterialCommunityIcons, MaterialIcons, Octicons} from "@expo/vector-icons";
+
 import ChatRoomScreens from "../screens/ChatRoom";
 import ContactScreen from "../screens/ContactScreen";
+import FleetScreen from "../screens/FleetScreen";
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -86,6 +89,10 @@ function RootNavigator() {
         <Stack.Screen
             name="Contacts"
             component={ContactScreen}
+        />
+        <Stack.Screen
+            name="Storys"
+            component={FleetScreen}
         />
         <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>

@@ -8,6 +8,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   Contacts: undefined;
   ChatRoom: undefined;
+  Storys: undefined;
 
 };
 
@@ -45,6 +46,25 @@ export type ChatRoom = {
   id: String;
   users: User[];
   lastMessage: Message;
+}
+export type TweetType = {
+  id: string,
+  createdAt: string,
+  user: User,
+  content: string,
+  image?: string,
+  numberOfComments?: number,
+  numberOfRetweets?: number,
+  numberOfLikes?: number,
+}
+
+export type FleetType = {
+  id: string,
+  createdAt: string,
+  user: User,
+  type: string,
+  text?: string,
+  imageUri?: string,
 }
 
 
