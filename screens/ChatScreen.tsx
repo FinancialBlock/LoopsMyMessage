@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, ScrollView, StyleSheet} from 'react-native';
 import { View } from '../components/Themed';
 import ChatListItem from "../components/ChatListItems";
 import {
@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 
 import { getUser } from './queries';
 import UserFleetPreview from "../components/UserFleetPreview";
+import UserFleetList from "../components/UserFleetList";
 
 export default function ChatsScreen() {
 
@@ -44,13 +45,16 @@ export default function ChatsScreen() {
 
     return (
         <View style={styles.container}>
-            <UserFleetPreview user={{id: '1', name:'blockchain', username:'blockchainbt', imageUri: 'https://i1.sndcdn.com/avatars-CkLqCmTeMPSVzN50-GiKLzA-t500x500.jpg'}}/>
+            <ScrollView>
+            <UserFleetList/>
             <FlatList
                 style={{width: '100%'}}
                 data={chatRooms}
                 renderItem={({ item }) => <ChatListItem chatRoom={item.chatRoom} />}
                 keyExtractor={(item) => item.id}
+                showsHorizontalScrollIndicator={false}
             />
+            </ScrollView>
             <NewMessageButton />
         </View>
     );
@@ -59,8 +63,7 @@ export default function ChatsScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+
     },
 
 });

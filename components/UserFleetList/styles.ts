@@ -4,7 +4,6 @@ import Colors from "../../constants/Colors";
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        marginRight: 5,
 
 
 
@@ -28,6 +27,16 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
         color: '#606060'
+
+    },
+    showallstories: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        padding: 2,
+        borderColor: '#3684b4',
+        borderWidth: 3,
+        color: '#449bd4',
+        borderRadius: 10,
 
     }
 

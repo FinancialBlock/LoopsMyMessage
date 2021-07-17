@@ -33,6 +33,7 @@ export default function ContactsScreen() {
                 style={{width: '100%'}}
                 data={users}
                 renderItem={({ item }) => <ContactListItem user={item} />}
+                showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
             />
         </View>

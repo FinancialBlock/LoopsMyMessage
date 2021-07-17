@@ -3,8 +3,11 @@ type User @model {
   name: String!
   username: String
   imageUri: String
+  email: String
   status: String
+  tweets: [Tweet] @connection(keyName: "byUser", fields: ["id"])
   chatRoomUser: [ChatRoomUser] @connection(keyName: "byUser", fields: ["id"])
+  fleets: [Fleet] @connection(keyName: "byUser", fields: ["id"])
 }
 
 type ChatRoomUser
@@ -39,5 +42,34 @@ type Message
   chatRoomID: ID!
   user: User @connection(fields: ["userID"])
   chatRoom: ChatRoom @connection(fields: ["chatRoomID"])
+}
+
+type Tweet @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  content: String!
+  image: String
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+  likes: [Like] @connection(keyName: "byTweet", fields: ["id"])
+}
+
+type Fleet @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  type: String!
+  text: String
+  image: String
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+}
+
+type Like
+  @model(queries:null)
+  @key(name: "byUser", fields: ["userID", "tweetID"])
+  @key(name: "byTweet", fields: ["tweetID", "userID"]) {
+  id: ID!
+  userID: ID!
+  tweetID: ID!
+  user: User! @connection(fields: ["userID"])
+  tweet: Tweet! @connection(fields: ["tweetID"])
 }
 

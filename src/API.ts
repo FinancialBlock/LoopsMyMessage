@@ -7,6 +7,7 @@ export type CreateUserInput = {
   name: string,
   username?: string | null,
   imageUri?: string | null,
+  email?: string | null,
   status?: string | null,
 };
 
@@ -14,6 +15,7 @@ export type ModelUserConditionInput = {
   name?: ModelStringInput | null,
   username?: ModelStringInput | null,
   imageUri?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   status?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
@@ -66,8 +68,46 @@ export type User = {
   name: string,
   username?: string | null,
   imageUri?: string | null,
+  email?: string | null,
   status?: string | null,
+  tweets?: ModelTweetConnection | null,
   chatRoomUser?: ModelChatRoomUserConnection | null,
+  fleets?: ModelFleetConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelTweetConnection = {
+  __typename: "ModelTweetConnection",
+  items?:  Array<Tweet | null > | null,
+  nextToken?: string | null,
+};
+
+export type Tweet = {
+  __typename: "Tweet",
+  id: string,
+  content: string,
+  image?: string | null,
+  userID: string,
+  user?: User | null,
+  likes?: ModelLikeConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelLikeConnection = {
+  __typename: "ModelLikeConnection",
+  items?:  Array<Like | null > | null,
+  nextToken?: string | null,
+};
+
+export type Like = {
+  __typename: "Like",
+  id: string,
+  userID: string,
+  tweetID: string,
+  user: User,
+  tweet: Tweet,
   createdAt: string,
   updatedAt: string,
 };
@@ -118,11 +158,30 @@ export type Message = {
   updatedAt: string,
 };
 
+export type ModelFleetConnection = {
+  __typename: "ModelFleetConnection",
+  items?:  Array<Fleet | null > | null,
+  nextToken?: string | null,
+};
+
+export type Fleet = {
+  __typename: "Fleet",
+  id: string,
+  type: string,
+  text?: string | null,
+  image?: string | null,
+  userID: string,
+  user?: User | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
 export type UpdateUserInput = {
   id: string,
   name?: string | null,
   username?: string | null,
   imageUri?: string | null,
+  email?: string | null,
   status?: string | null,
 };
 
@@ -221,11 +280,93 @@ export type DeleteMessageInput = {
   id: string,
 };
 
+export type CreateTweetInput = {
+  id?: string | null,
+  content: string,
+  image?: string | null,
+  userID: string,
+};
+
+export type ModelTweetConditionInput = {
+  content?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelTweetConditionInput | null > | null,
+  or?: Array< ModelTweetConditionInput | null > | null,
+  not?: ModelTweetConditionInput | null,
+};
+
+export type UpdateTweetInput = {
+  id: string,
+  content?: string | null,
+  image?: string | null,
+  userID?: string | null,
+};
+
+export type DeleteTweetInput = {
+  id: string,
+};
+
+export type CreateFleetInput = {
+  id?: string | null,
+  type: string,
+  text?: string | null,
+  image?: string | null,
+  userID: string,
+};
+
+export type ModelFleetConditionInput = {
+  type?: ModelStringInput | null,
+  text?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelFleetConditionInput | null > | null,
+  or?: Array< ModelFleetConditionInput | null > | null,
+  not?: ModelFleetConditionInput | null,
+};
+
+export type UpdateFleetInput = {
+  id: string,
+  type?: string | null,
+  text?: string | null,
+  image?: string | null,
+  userID?: string | null,
+};
+
+export type DeleteFleetInput = {
+  id: string,
+};
+
+export type CreateLikeInput = {
+  id?: string | null,
+  userID: string,
+  tweetID: string,
+};
+
+export type ModelLikeConditionInput = {
+  userID?: ModelIDInput | null,
+  tweetID?: ModelIDInput | null,
+  and?: Array< ModelLikeConditionInput | null > | null,
+  or?: Array< ModelLikeConditionInput | null > | null,
+  not?: ModelLikeConditionInput | null,
+};
+
+export type UpdateLikeInput = {
+  id: string,
+  userID?: string | null,
+  tweetID?: string | null,
+};
+
+export type DeleteLikeInput = {
+  id: string,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   username?: ModelStringInput | null,
   imageUri?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   status?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
@@ -272,6 +413,27 @@ export type ModelMessageFilterInput = {
   not?: ModelMessageFilterInput | null,
 };
 
+export type ModelTweetFilterInput = {
+  id?: ModelIDInput | null,
+  content?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelTweetFilterInput | null > | null,
+  or?: Array< ModelTweetFilterInput | null > | null,
+  not?: ModelTweetFilterInput | null,
+};
+
+export type ModelFleetFilterInput = {
+  id?: ModelIDInput | null,
+  type?: ModelStringInput | null,
+  text?: ModelStringInput | null,
+  image?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelFleetFilterInput | null > | null,
+  or?: Array< ModelFleetFilterInput | null > | null,
+  not?: ModelFleetFilterInput | null,
+};
+
 export type ModelStringKeyConditionInput = {
   eq?: string | null,
   le?: string | null,
@@ -300,7 +462,21 @@ export type CreateUserMutation = {
     name: string,
     username?: string | null,
     imageUri?: string | null,
+    email?: string | null,
     status?: string | null,
+    tweets?:  {
+      __typename: "ModelTweetConnection",
+      items?:  Array< {
+        __typename: "Tweet",
+        id: string,
+        content: string,
+        image?: string | null,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     chatRoomUser?:  {
       __typename: "ModelChatRoomUserConnection",
       items?:  Array< {
@@ -308,6 +484,20 @@ export type CreateUserMutation = {
         id: string,
         userID: string,
         chatRoomID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    fleets?:  {
+      __typename: "ModelFleetConnection",
+      items?:  Array< {
+        __typename: "Fleet",
+        id: string,
+        type: string,
+        text?: string | null,
+        image?: string | null,
+        userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -330,7 +520,21 @@ export type UpdateUserMutation = {
     name: string,
     username?: string | null,
     imageUri?: string | null,
+    email?: string | null,
     status?: string | null,
+    tweets?:  {
+      __typename: "ModelTweetConnection",
+      items?:  Array< {
+        __typename: "Tweet",
+        id: string,
+        content: string,
+        image?: string | null,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     chatRoomUser?:  {
       __typename: "ModelChatRoomUserConnection",
       items?:  Array< {
@@ -338,6 +542,20 @@ export type UpdateUserMutation = {
         id: string,
         userID: string,
         chatRoomID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    fleets?:  {
+      __typename: "ModelFleetConnection",
+      items?:  Array< {
+        __typename: "Fleet",
+        id: string,
+        type: string,
+        text?: string | null,
+        image?: string | null,
+        userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -360,7 +578,21 @@ export type DeleteUserMutation = {
     name: string,
     username?: string | null,
     imageUri?: string | null,
+    email?: string | null,
     status?: string | null,
+    tweets?:  {
+      __typename: "ModelTweetConnection",
+      items?:  Array< {
+        __typename: "Tweet",
+        id: string,
+        content: string,
+        image?: string | null,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     chatRoomUser?:  {
       __typename: "ModelChatRoomUserConnection",
       items?:  Array< {
@@ -368,6 +600,20 @@ export type DeleteUserMutation = {
         id: string,
         userID: string,
         chatRoomID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    fleets?:  {
+      __typename: "ModelFleetConnection",
+      items?:  Array< {
+        __typename: "Fleet",
+        id: string,
+        type: string,
+        text?: string | null,
+        image?: string | null,
+        userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -395,9 +641,18 @@ export type CreateChatRoomUserMutation = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -449,9 +704,18 @@ export type UpdateChatRoomUserMutation = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -503,9 +767,18 @@ export type DeleteChatRoomUserMutation = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -588,6 +861,7 @@ export type CreateChatRoomMutation = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -654,6 +928,7 @@ export type UpdateChatRoomMutation = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -720,6 +995,7 @@ export type DeleteChatRoomMutation = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -757,9 +1033,18 @@ export type CreateMessageMutation = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -812,9 +1097,18 @@ export type UpdateMessageMutation = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -867,9 +1161,18 @@ export type DeleteMessageMutation = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -903,6 +1206,474 @@ export type DeleteMessageMutation = {
   } | null,
 };
 
+export type CreateTweetMutationVariables = {
+  input: CreateTweetInput,
+  condition?: ModelTweetConditionInput | null,
+};
+
+export type CreateTweetMutation = {
+  createTweet?:  {
+    __typename: "Tweet",
+    id: string,
+    content: string,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    likes?:  {
+      __typename: "ModelLikeConnection",
+      items?:  Array< {
+        __typename: "Like",
+        id: string,
+        userID: string,
+        tweetID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateTweetMutationVariables = {
+  input: UpdateTweetInput,
+  condition?: ModelTweetConditionInput | null,
+};
+
+export type UpdateTweetMutation = {
+  updateTweet?:  {
+    __typename: "Tweet",
+    id: string,
+    content: string,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    likes?:  {
+      __typename: "ModelLikeConnection",
+      items?:  Array< {
+        __typename: "Like",
+        id: string,
+        userID: string,
+        tweetID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteTweetMutationVariables = {
+  input: DeleteTweetInput,
+  condition?: ModelTweetConditionInput | null,
+};
+
+export type DeleteTweetMutation = {
+  deleteTweet?:  {
+    __typename: "Tweet",
+    id: string,
+    content: string,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    likes?:  {
+      __typename: "ModelLikeConnection",
+      items?:  Array< {
+        __typename: "Like",
+        id: string,
+        userID: string,
+        tweetID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateFleetMutationVariables = {
+  input: CreateFleetInput,
+  condition?: ModelFleetConditionInput | null,
+};
+
+export type CreateFleetMutation = {
+  createFleet?:  {
+    __typename: "Fleet",
+    id: string,
+    type: string,
+    text?: string | null,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateFleetMutationVariables = {
+  input: UpdateFleetInput,
+  condition?: ModelFleetConditionInput | null,
+};
+
+export type UpdateFleetMutation = {
+  updateFleet?:  {
+    __typename: "Fleet",
+    id: string,
+    type: string,
+    text?: string | null,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteFleetMutationVariables = {
+  input: DeleteFleetInput,
+  condition?: ModelFleetConditionInput | null,
+};
+
+export type DeleteFleetMutation = {
+  deleteFleet?:  {
+    __typename: "Fleet",
+    id: string,
+    type: string,
+    text?: string | null,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateLikeMutationVariables = {
+  input: CreateLikeInput,
+  condition?: ModelLikeConditionInput | null,
+};
+
+export type CreateLikeMutation = {
+  createLike?:  {
+    __typename: "Like",
+    id: string,
+    userID: string,
+    tweetID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    tweet:  {
+      __typename: "Tweet",
+      id: string,
+      content: string,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateLikeMutationVariables = {
+  input: UpdateLikeInput,
+  condition?: ModelLikeConditionInput | null,
+};
+
+export type UpdateLikeMutation = {
+  updateLike?:  {
+    __typename: "Like",
+    id: string,
+    userID: string,
+    tweetID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    tweet:  {
+      __typename: "Tweet",
+      id: string,
+      content: string,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteLikeMutationVariables = {
+  input: DeleteLikeInput,
+  condition?: ModelLikeConditionInput | null,
+};
+
+export type DeleteLikeMutation = {
+  deleteLike?:  {
+    __typename: "Like",
+    id: string,
+    userID: string,
+    tweetID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    tweet:  {
+      __typename: "Tweet",
+      id: string,
+      content: string,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -914,7 +1685,21 @@ export type GetUserQuery = {
     name: string,
     username?: string | null,
     imageUri?: string | null,
+    email?: string | null,
     status?: string | null,
+    tweets?:  {
+      __typename: "ModelTweetConnection",
+      items?:  Array< {
+        __typename: "Tweet",
+        id: string,
+        content: string,
+        image?: string | null,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     chatRoomUser?:  {
       __typename: "ModelChatRoomUserConnection",
       items?:  Array< {
@@ -922,6 +1707,20 @@ export type GetUserQuery = {
         id: string,
         userID: string,
         chatRoomID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    fleets?:  {
+      __typename: "ModelFleetConnection",
+      items?:  Array< {
+        __typename: "Fleet",
+        id: string,
+        type: string,
+        text?: string | null,
+        image?: string | null,
+        userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -947,9 +1746,18 @@ export type ListUsersQuery = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -975,9 +1783,18 @@ export type GetChatRoomUserQuery = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1032,6 +1849,7 @@ export type ListChatRoomUsersQuery = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -1097,6 +1915,7 @@ export type GetChatRoomQuery = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -1170,9 +1989,18 @@ export type GetMessageQuery = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1228,6 +2056,7 @@ export type ListMessagesQuery = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -1239,6 +2068,168 @@ export type ListMessagesQuery = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetTweetQueryVariables = {
+  id: string,
+};
+
+export type GetTweetQuery = {
+  getTweet?:  {
+    __typename: "Tweet",
+    id: string,
+    content: string,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    likes?:  {
+      __typename: "ModelLikeConnection",
+      items?:  Array< {
+        __typename: "Like",
+        id: string,
+        userID: string,
+        tweetID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListTweetsQueryVariables = {
+  filter?: ModelTweetFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListTweetsQuery = {
+  listTweets?:  {
+    __typename: "ModelTweetConnection",
+    items?:  Array< {
+      __typename: "Tweet",
+      id: string,
+      content: string,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetFleetQueryVariables = {
+  id: string,
+};
+
+export type GetFleetQuery = {
+  getFleet?:  {
+    __typename: "Fleet",
+    id: string,
+    type: string,
+    text?: string | null,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListFleetsQueryVariables = {
+  filter?: ModelFleetFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListFleetsQuery = {
+  listFleets?:  {
+    __typename: "ModelFleetConnection",
+    items?:  Array< {
+      __typename: "Fleet",
+      id: string,
+      type: string,
+      text?: string | null,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
       updatedAt: string,
     } | null > | null,
     nextToken?: string | null,
@@ -1270,6 +2261,7 @@ export type MessagesByChatRoomQuery = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -1294,7 +2286,21 @@ export type OnCreateUserSubscription = {
     name: string,
     username?: string | null,
     imageUri?: string | null,
+    email?: string | null,
     status?: string | null,
+    tweets?:  {
+      __typename: "ModelTweetConnection",
+      items?:  Array< {
+        __typename: "Tweet",
+        id: string,
+        content: string,
+        image?: string | null,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     chatRoomUser?:  {
       __typename: "ModelChatRoomUserConnection",
       items?:  Array< {
@@ -1302,6 +2308,20 @@ export type OnCreateUserSubscription = {
         id: string,
         userID: string,
         chatRoomID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    fleets?:  {
+      __typename: "ModelFleetConnection",
+      items?:  Array< {
+        __typename: "Fleet",
+        id: string,
+        type: string,
+        text?: string | null,
+        image?: string | null,
+        userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -1319,7 +2339,21 @@ export type OnUpdateUserSubscription = {
     name: string,
     username?: string | null,
     imageUri?: string | null,
+    email?: string | null,
     status?: string | null,
+    tweets?:  {
+      __typename: "ModelTweetConnection",
+      items?:  Array< {
+        __typename: "Tweet",
+        id: string,
+        content: string,
+        image?: string | null,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     chatRoomUser?:  {
       __typename: "ModelChatRoomUserConnection",
       items?:  Array< {
@@ -1327,6 +2361,20 @@ export type OnUpdateUserSubscription = {
         id: string,
         userID: string,
         chatRoomID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    fleets?:  {
+      __typename: "ModelFleetConnection",
+      items?:  Array< {
+        __typename: "Fleet",
+        id: string,
+        type: string,
+        text?: string | null,
+        image?: string | null,
+        userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -1344,7 +2392,21 @@ export type OnDeleteUserSubscription = {
     name: string,
     username?: string | null,
     imageUri?: string | null,
+    email?: string | null,
     status?: string | null,
+    tweets?:  {
+      __typename: "ModelTweetConnection",
+      items?:  Array< {
+        __typename: "Tweet",
+        id: string,
+        content: string,
+        image?: string | null,
+        userID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     chatRoomUser?:  {
       __typename: "ModelChatRoomUserConnection",
       items?:  Array< {
@@ -1352,6 +2414,20 @@ export type OnDeleteUserSubscription = {
         id: string,
         userID: string,
         chatRoomID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    fleets?:  {
+      __typename: "ModelFleetConnection",
+      items?:  Array< {
+        __typename: "Fleet",
+        id: string,
+        type: string,
+        text?: string | null,
+        image?: string | null,
+        userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -1374,9 +2450,18 @@ export type OnCreateChatRoomUserSubscription = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1423,9 +2508,18 @@ export type OnUpdateChatRoomUserSubscription = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1472,9 +2566,18 @@ export type OnDeleteChatRoomUserSubscription = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1552,6 +2655,7 @@ export type OnCreateChatRoomSubscription = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -1613,6 +2717,7 @@ export type OnUpdateChatRoomSubscription = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -1674,6 +2779,7 @@ export type OnDeleteChatRoomSubscription = {
         name: string,
         username?: string | null,
         imageUri?: string | null,
+        email?: string | null,
         status?: string | null,
         createdAt: string,
         updatedAt: string,
@@ -1706,9 +2812,18 @@ export type OnCreateMessageSubscription = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1756,9 +2871,18 @@ export type OnUpdateMessageSubscription = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1806,9 +2930,18 @@ export type OnDeleteMessageSubscription = {
       name: string,
       username?: string | null,
       imageUri?: string | null,
+      email?: string | null,
       status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
       chatRoomUser?:  {
         __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1838,6 +2971,429 @@ export type OnDeleteMessageSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateTweetSubscription = {
+  onCreateTweet?:  {
+    __typename: "Tweet",
+    id: string,
+    content: string,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    likes?:  {
+      __typename: "ModelLikeConnection",
+      items?:  Array< {
+        __typename: "Like",
+        id: string,
+        userID: string,
+        tweetID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateTweetSubscription = {
+  onUpdateTweet?:  {
+    __typename: "Tweet",
+    id: string,
+    content: string,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    likes?:  {
+      __typename: "ModelLikeConnection",
+      items?:  Array< {
+        __typename: "Like",
+        id: string,
+        userID: string,
+        tweetID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteTweetSubscription = {
+  onDeleteTweet?:  {
+    __typename: "Tweet",
+    id: string,
+    content: string,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    likes?:  {
+      __typename: "ModelLikeConnection",
+      items?:  Array< {
+        __typename: "Like",
+        id: string,
+        userID: string,
+        tweetID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateFleetSubscription = {
+  onCreateFleet?:  {
+    __typename: "Fleet",
+    id: string,
+    type: string,
+    text?: string | null,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateFleetSubscription = {
+  onUpdateFleet?:  {
+    __typename: "Fleet",
+    id: string,
+    type: string,
+    text?: string | null,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteFleetSubscription = {
+  onDeleteFleet?:  {
+    __typename: "Fleet",
+    id: string,
+    type: string,
+    text?: string | null,
+    image?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateLikeSubscription = {
+  onCreateLike?:  {
+    __typename: "Like",
+    id: string,
+    userID: string,
+    tweetID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    tweet:  {
+      __typename: "Tweet",
+      id: string,
+      content: string,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateLikeSubscription = {
+  onUpdateLike?:  {
+    __typename: "Like",
+    id: string,
+    userID: string,
+    tweetID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    tweet:  {
+      __typename: "Tweet",
+      id: string,
+      content: string,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteLikeSubscription = {
+  onDeleteLike?:  {
+    __typename: "Like",
+    id: string,
+    userID: string,
+    tweetID: string,
+    user:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    tweet:  {
+      __typename: "Tweet",
+      id: string,
+      content: string,
+      image?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      likes?:  {
+        __typename: "ModelLikeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    createdAt: string,
     updatedAt: string,
   } | null,
 };

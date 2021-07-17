@@ -9,12 +9,36 @@ export const getUser = /* GraphQL */ `
       name
       username
       imageUri
+      email
       status
+      tweets {
+        items {
+          id
+          content
+          image
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       chatRoomUser {
         items {
           id
           userID
           chatRoomID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      fleets {
+        items {
+          id
+          type
+          text
+          image
+          userID
           createdAt
           updatedAt
         }
@@ -37,8 +61,15 @@ export const listUsers = /* GraphQL */ `
         name
         username
         imageUri
+        email
         status
+        tweets {
+          nextToken
+        }
         chatRoomUser {
+          nextToken
+        }
+        fleets {
           nextToken
         }
         createdAt
@@ -59,8 +90,15 @@ export const getChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        email
         status
+        tweets {
+          nextToken
+        }
         chatRoomUser {
+          nextToken
+        }
+        fleets {
           nextToken
         }
         createdAt
@@ -107,6 +145,7 @@ export const listChatRoomUsers = /* GraphQL */ `
           name
           username
           imageUri
+          email
           status
           createdAt
           updatedAt
@@ -161,6 +200,7 @@ export const getChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          email
           status
           createdAt
           updatedAt
@@ -222,8 +262,15 @@ export const getMessage = /* GraphQL */ `
         name
         username
         imageUri
+        email
         status
+        tweets {
+          nextToken
+        }
         chatRoomUser {
+          nextToken
+        }
+        fleets {
           nextToken
         }
         createdAt
@@ -271,6 +318,7 @@ export const listMessages = /* GraphQL */ `
           name
           username
           imageUri
+          email
           status
           createdAt
           updatedAt
@@ -281,6 +329,141 @@ export const listMessages = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getTweet = /* GraphQL */ `
+  query GetTweet($id: ID!) {
+    getTweet(id: $id) {
+      id
+      content
+      image
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      likes {
+        items {
+          id
+          userID
+          tweetID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTweets = /* GraphQL */ `
+  query ListTweets(
+    $filter: ModelTweetFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTweets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        content
+        image
+        userID
+        user {
+          id
+          name
+          username
+          imageUri
+          email
+          status
+          createdAt
+          updatedAt
+        }
+        likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getFleet = /* GraphQL */ `
+  query GetFleet($id: ID!) {
+    getFleet(id: $id) {
+      id
+      type
+      text
+      image
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listFleets = /* GraphQL */ `
+  query ListFleets(
+    $filter: ModelFleetFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFleets(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        type
+        text
+        image
+        userID
+        user {
+          id
+          name
+          username
+          imageUri
+          email
+          status
+          createdAt
+          updatedAt
+        }
+        createdAt
         updatedAt
       }
       nextToken
@@ -315,6 +498,7 @@ export const messagesByChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          email
           status
           createdAt
           updatedAt
