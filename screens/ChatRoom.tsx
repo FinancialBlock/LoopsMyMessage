@@ -8,7 +8,7 @@ import {
     Auth,
 } from 'aws-amplify';
 import {messagesByChatRoom} from "../src/graphql/queries";
-
+import { onCreateMessage } from '../src/graphql/subscriptions';
 
 import ChatMessage from "../components/ChatMessage";
 
@@ -24,7 +24,7 @@ import chatRoomScreen from '../data/chatRooms';
 import Animated from "react-native-reanimated";
 
 import InputBox from "../components/InputBox";
-import {onCreateMessage} from "../src/graphql/subscriptions";
+
 
 const ChatRoomScreen = () => {
     const [messages, setMessages] = useState([]);

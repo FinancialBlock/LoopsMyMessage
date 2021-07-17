@@ -9,11 +9,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
 
+
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import ChatScreen from '../screens/ChatScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import UserProfileScreen from "../screens/UserProfileScreen";
 
 const BottomTab = createMaterialTopTabNavigator<BottomTabParamList>();
 
@@ -52,8 +54,8 @@ export default function BottomTabNavigator() {
 
         />
         <BottomTab.Screen
-            name="Calls"
-            component={ChatScreen}
+            name="Profile"
+            component={UserProfileScreen}
 
         />
     </BottomTab.Navigator>

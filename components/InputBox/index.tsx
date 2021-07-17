@@ -39,7 +39,7 @@ const InputBox = (props) => {
     const onMicrophonePress = () => {
         console.warn('Microphone')
     }
-
+//update room messages
     const updateChatRoomLastMessage = async (messageId: string) => {
         try {
             await API.graphql(

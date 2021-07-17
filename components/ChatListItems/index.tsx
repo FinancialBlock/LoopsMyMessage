@@ -1,9 +1,12 @@
+// This list the Message displays other users of the chats and chatrooms. Userslast message String, Content created at
+
 import React, {useEffect, useState} from 'react';
 import {
     View,
     Text,
     Image,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    TouchableOpacity, TouchableHighlight,
 } from "react-native";
 import { ChatRoom } from "../../types";
 import styles from "./style";
@@ -51,14 +54,20 @@ const ChatListItem = (props: ChatListItemProps) => {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={onClick}>
+        <TouchableHighlight underlayColor="#add8e6" onPress={onClick}>
             <View style={styles.container}>
                 <View style={styles.lefContainer}>
                     <Image source={{ uri: otherUser.imageUri }} style={styles.avatar}/>
 
                     <View style={styles.midContainer}>
                         <Text style={styles.username}>{otherUser.name}</Text>
-                        <Text numberOfLines={2} style={styles.lastMessage}>{chatRoom.lastMessage ? chatRoom.lastMessage.content : ""}</Text>
+                        <Text
+                            numberOfLines={2}
+                            style={styles.lastMessage}>
+                            {chatRoom.lastMessage
+                                ? `${chatRoom.lastMessage.user.name}: ${chatRoom.lastMessage.content}`
+                                : ""}
+                        </Text>
                     </View>
 
                 </View>
@@ -67,7 +76,7 @@ const ChatListItem = (props: ChatListItemProps) => {
                     {chatRoom.lastMessage && moment(chatRoom.lastMessage.createdAt).format("DD/MM/YYYY")}
                 </Text>
             </View>
-        </TouchableWithoutFeedback>
+        </TouchableHighlight>
     )
 };
 

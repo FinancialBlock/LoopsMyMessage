@@ -13,6 +13,7 @@ import NewMessageButton from "../components/NewMessageButton";
 import {useEffect, useState} from "react";
 
 import { getUser } from './queries';
+import UserFleetPreview from "../components/UserFleetPreview";
 
 export default function ChatsScreen() {
 
@@ -43,6 +44,7 @@ export default function ChatsScreen() {
 
     return (
         <View style={styles.container}>
+            <UserFleetPreview user={{id: '1', name:'blockchain', username:'blockchainbt', imageUri: 'https://i1.sndcdn.com/avatars-CkLqCmTeMPSVzN50-GiKLzA-t500x500.jpg'}}/>
             <FlatList
                 style={{width: '100%'}}
                 data={chatRooms}

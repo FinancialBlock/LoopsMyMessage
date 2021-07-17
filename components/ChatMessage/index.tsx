@@ -1,6 +1,6 @@
 import React from "react";
 import {ChatListItemProps} from "../ChatListItems";
-import { Text }  from 'react-native';
+import { Text, TouchableOpacity }  from 'react-native';
 import {Message} from "../../types";
 import {View} from "../Themed";
 import moment from "moment";
@@ -21,7 +21,9 @@ const ChatMessage = (props: ChatMessageProps) => {
 
 
     return (
+
         <View style={styles.container}>
+            <TouchableOpacity>
             <View style={[
                 styles.messageBox, {
                     backgroundColor: isMyMessage() ? '#add8e6' : '#d9d4d4',
@@ -33,6 +35,7 @@ const ChatMessage = (props: ChatMessageProps) => {
                 <Text style={styles.message}>{message.content}</Text>
                 <Text style={styles.time}>{moment(message.createdAt).fromNow()}</Text>
             </View>
+            </TouchableOpacity>
         </View>
     )
 }

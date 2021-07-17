@@ -7,6 +7,7 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       name
+      username
       imageUri
       status
       chatRoomUser {
@@ -34,6 +35,7 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         name
+        username
         imageUri
         status
         chatRoomUser {
@@ -55,6 +57,7 @@ export const getChatRoomUser = /* GraphQL */ `
       user {
         id
         name
+        username
         imageUri
         status
         chatRoomUser {
@@ -102,6 +105,7 @@ export const listChatRoomUsers = /* GraphQL */ `
         user {
           id
           name
+          username
           imageUri
           status
           createdAt
@@ -155,6 +159,7 @@ export const getChatRoom = /* GraphQL */ `
         user {
           id
           name
+          username
           imageUri
           status
           createdAt
@@ -215,6 +220,7 @@ export const getMessage = /* GraphQL */ `
       user {
         id
         name
+        username
         imageUri
         status
         chatRoomUser {
@@ -263,6 +269,7 @@ export const listMessages = /* GraphQL */ `
         user {
           id
           name
+          username
           imageUri
           status
           createdAt
@@ -306,6 +313,7 @@ export const messagesByChatRoom = /* GraphQL */ `
         user {
           id
           name
+          username
           imageUri
           status
           createdAt
