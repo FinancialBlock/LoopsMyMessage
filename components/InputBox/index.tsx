@@ -95,7 +95,7 @@ const InputBox = (props) => {
         >
             <View style={styles.container}>
                 <View style={styles.mainContainer}>
-                    <FontAwesome5 name="laugh-beam" size={24} color="grey" />
+                    <FontAwesome5 name="laugh-beam" size={24} color="black" />
                     <TextInput
                         placeholder={"Type a message"}
                         style={styles.textInput}
@@ -103,8 +103,9 @@ const InputBox = (props) => {
                         value={message}
                         onChangeText={setMessage}
                     />
-                    <Entypo name="attachment" size={24} color="grey" style={styles.icon} />
-                    {!message && <Fontisto name="camera" size={24} color="grey" style={styles.icon} />}
+                    <Entypo name="attachment" size={24} color="black" style={styles.icon} />
+                    <MaterialIcons name="attach-money" size={24} color="black" style={styles.icon} />
+                    {!message && <Fontisto name="camera" size={24} color="black" style={styles.icon} />}
                 </View>
                 <TouchableOpacity onPress={onPress}>
                     <View style={styles.buttonContainer}>

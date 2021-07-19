@@ -9,6 +9,7 @@ export type RootStackParamList = {
   Contacts: undefined;
   ChatRoom: undefined;
   Storys: undefined;
+  Post: undefined;
 
 };
 
@@ -17,6 +18,7 @@ export type BottomTabParamList = {
   Chats: undefined;
   Status: undefined;
   Calls: undefined;
+  Post: undefined;
 
 };
 
@@ -33,6 +35,9 @@ export type User = {
   username: String;
   imageUri: String;
   status: String;
+  description: String;
+  followers: String;
+  following: String;
 }
 
 export type Message = {
@@ -62,6 +67,29 @@ export type FleetType = {
   id: string,
   createdAt: string,
   user: User,
+  type: string,
+  text?: string,
+  imageUri?: string,
+}
+
+/*export type ProfileType = {
+  id: string,
+  createdAt: string,
+  name: String;
+  username: String;
+  imageUri: String;
+  status: String;
+  description: String;
+  post: 100;
+
+}*/
+
+export type Post= {
+  id: string,
+  createdAt: string,
+  user: User,
+  video: string,
+  song: string,
   type: string,
   text?: string,
   imageUri?: string,

@@ -5,9 +5,30 @@ type User @model {
   imageUri: String
   email: String
   status: String
+  posts: [Post] @connection(keyName: "byUser", fields: ["id"])
   tweets: [Tweet] @connection(keyName: "byUser", fields: ["id"])
   chatRoomUser: [ChatRoomUser] @connection(keyName: "byUser", fields: ["id"])
   fleets: [Fleet] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type Post @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  videoUri: String!
+  description: String!
+
+
+
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+
+  songID: ID!
+  song: Song @connection(fields: ["songID"])
+}
+
+type Song @model {
+  id: ID!
+  name: String!
+  imageUri: String
 }
 
 type ChatRoomUser
@@ -47,7 +68,7 @@ type Message
 type Tweet @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   content: String!
-  image: String
+  imageUri: String
   userID: ID!
   user: User @connection(fields: ["userID"])
   likes: [Like] @connection(keyName: "byTweet", fields: ["id"])
@@ -57,7 +78,7 @@ type Fleet @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   type: String!
   text: String
-  image: String
+  imageUri: String
   userID: ID!
   user: User @connection(fields: ["userID"])
 }
@@ -72,4 +93,16 @@ type Like
   user: User! @connection(fields: ["userID"])
   tweet: Tweet! @connection(fields: ["tweetID"])
 }
+
+type ProfileType @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  description: String!
+  text: String
+  imageUri: String
+  background: String
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+}
+
+
 

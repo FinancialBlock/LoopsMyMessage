@@ -11,11 +11,23 @@ export const onCreateUser = /* GraphQL */ `
       imageUri
       email
       status
+      posts {
+        items {
+          id
+          videoUri
+          description
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
           content
-          image
+          imageUri
           userID
           createdAt
           updatedAt
@@ -37,7 +49,7 @@ export const onCreateUser = /* GraphQL */ `
           id
           type
           text
-          image
+          imageUri
           userID
           createdAt
           updatedAt
@@ -58,11 +70,23 @@ export const onUpdateUser = /* GraphQL */ `
       imageUri
       email
       status
+      posts {
+        items {
+          id
+          videoUri
+          description
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
           content
-          image
+          imageUri
           userID
           createdAt
           updatedAt
@@ -84,7 +108,7 @@ export const onUpdateUser = /* GraphQL */ `
           id
           type
           text
-          image
+          imageUri
           userID
           createdAt
           updatedAt
@@ -105,11 +129,23 @@ export const onDeleteUser = /* GraphQL */ `
       imageUri
       email
       status
+      posts {
+        items {
+          id
+          videoUri
+          description
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
           content
-          image
+          imageUri
           userID
           createdAt
           updatedAt
@@ -131,13 +167,172 @@ export const onDeleteUser = /* GraphQL */ `
           id
           type
           text
-          image
+          imageUri
           userID
           createdAt
           updatedAt
         }
         nextToken
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreatePost = /* GraphQL */ `
+  subscription OnCreatePost {
+    onCreatePost {
+      id
+      videoUri
+      description
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePost = /* GraphQL */ `
+  subscription OnUpdatePost {
+    onUpdatePost {
+      id
+      videoUri
+      description
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePost = /* GraphQL */ `
+  subscription OnDeletePost {
+    onDeletePost {
+      id
+      videoUri
+      description
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSong = /* GraphQL */ `
+  subscription OnCreateSong {
+    onCreateSong {
+      id
+      name
+      imageUri
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSong = /* GraphQL */ `
+  subscription OnUpdateSong {
+    onUpdateSong {
+      id
+      name
+      imageUri
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSong = /* GraphQL */ `
+  subscription OnDeleteSong {
+    onDeleteSong {
+      id
+      name
+      imageUri
       createdAt
       updatedAt
     }
@@ -156,6 +351,9 @@ export const onCreateChatRoomUser = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -206,6 +404,9 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -256,6 +457,9 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -473,6 +677,9 @@ export const onCreateMessage = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -524,6 +731,9 @@ export const onUpdateMessage = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -575,6 +785,9 @@ export const onDeleteMessage = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -616,7 +829,7 @@ export const onCreateTweet = /* GraphQL */ `
     onCreateTweet {
       id
       content
-      image
+      imageUri
       userID
       user {
         id
@@ -625,6 +838,9 @@ export const onCreateTweet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -657,7 +873,7 @@ export const onUpdateTweet = /* GraphQL */ `
     onUpdateTweet {
       id
       content
-      image
+      imageUri
       userID
       user {
         id
@@ -666,6 +882,9 @@ export const onUpdateTweet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -698,7 +917,7 @@ export const onDeleteTweet = /* GraphQL */ `
     onDeleteTweet {
       id
       content
-      image
+      imageUri
       userID
       user {
         id
@@ -707,6 +926,9 @@ export const onDeleteTweet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -740,7 +962,7 @@ export const onCreateFleet = /* GraphQL */ `
       id
       type
       text
-      image
+      imageUri
       userID
       user {
         id
@@ -749,6 +971,9 @@ export const onCreateFleet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -772,7 +997,7 @@ export const onUpdateFleet = /* GraphQL */ `
       id
       type
       text
-      image
+      imageUri
       userID
       user {
         id
@@ -781,6 +1006,9 @@ export const onUpdateFleet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -804,7 +1032,7 @@ export const onDeleteFleet = /* GraphQL */ `
       id
       type
       text
-      image
+      imageUri
       userID
       user {
         id
@@ -813,6 +1041,9 @@ export const onDeleteFleet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -843,6 +1074,9 @@ export const onCreateLike = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -858,7 +1092,7 @@ export const onCreateLike = /* GraphQL */ `
       tweet {
         id
         content
-        image
+        imageUri
         userID
         user {
           id
@@ -894,6 +1128,9 @@ export const onUpdateLike = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -909,7 +1146,7 @@ export const onUpdateLike = /* GraphQL */ `
       tweet {
         id
         content
-        image
+        imageUri
         userID
         user {
           id
@@ -945,6 +1182,9 @@ export const onDeleteLike = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -960,7 +1200,7 @@ export const onDeleteLike = /* GraphQL */ `
       tweet {
         id
         content
-        image
+        imageUri
         userID
         user {
           id
@@ -973,6 +1213,114 @@ export const onDeleteLike = /* GraphQL */ `
           updatedAt
         }
         likes {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateProfileType = /* GraphQL */ `
+  subscription OnCreateProfileType {
+    onCreateProfileType {
+      id
+      description
+      text
+      imageUri
+      background
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateProfileType = /* GraphQL */ `
+  subscription OnUpdateProfileType {
+    onUpdateProfileType {
+      id
+      description
+      text
+      imageUri
+      background
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteProfileType = /* GraphQL */ `
+  subscription OnDeleteProfileType {
+    onDeleteProfileType {
+      id
+      description
+      text
+      imageUri
+      background
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
           nextToken
         }
         createdAt

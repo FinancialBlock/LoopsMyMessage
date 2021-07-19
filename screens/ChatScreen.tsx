@@ -29,12 +29,13 @@ export default function ChatsScreen() {
                     graphqlOperation(
                         getUser, {
                             id: userInfo.attributes.sub,
+                            sortDirection: "DESC",
                         }
                     )
                 )
 
                 setChatRooms(userData.data.getUser.chatRoomUser.items)
-                console.log(userData);
+                
 
             } catch (e) {
                 console.log(e);
@@ -45,7 +46,7 @@ export default function ChatsScreen() {
 
     return (
         <View style={styles.container}>
-
+            <ScrollView>
             <UserFleetList/>
             <FlatList
                 style={{width: '100%'}}
@@ -54,7 +55,7 @@ export default function ChatsScreen() {
                 keyExtractor={(item) => item.id}
                 showsHorizontalScrollIndicator={false}
             />
-
+            </ScrollView>
             <NewMessageButton />
         </View>
     );

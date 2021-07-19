@@ -28,10 +28,15 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     profileImage: {
-        width: 150,
-        height: 150,
-        borderRadius: 100,
-        overflow: 'hidden',
+        width: 105,
+        height: 120,
+        marginTop: 10,
+        borderRadius: 30,
+        padding: 15,
+        alignItems: 'center',
+        borderWidth: 3,
+        borderColor: '#449bd4',
+
 
 
     },
@@ -141,6 +146,15 @@ const styles = StyleSheet.create({
     },
     userBtnTxt: {
         color: '#2e64e5',
+    },
+    background: {
+        width: '100%',
+
+        height: 200,
+
+        overflow: 'hidden',
+        position: 'absolute',
+
     },
 });
 

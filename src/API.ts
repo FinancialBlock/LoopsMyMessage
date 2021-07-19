@@ -70,9 +70,38 @@ export type User = {
   imageUri?: string | null,
   email?: string | null,
   status?: string | null,
+  posts?: ModelPostConnection | null,
   tweets?: ModelTweetConnection | null,
   chatRoomUser?: ModelChatRoomUserConnection | null,
   fleets?: ModelFleetConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelPostConnection = {
+  __typename: "ModelPostConnection",
+  items?:  Array<Post | null > | null,
+  nextToken?: string | null,
+};
+
+export type Post = {
+  __typename: "Post",
+  id: string,
+  videoUri: string,
+  description: string,
+  userID: string,
+  user?: User | null,
+  songID: string,
+  song?: Song | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type Song = {
+  __typename: "Song",
+  id: string,
+  name: string,
+  imageUri?: string | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -87,7 +116,7 @@ export type Tweet = {
   __typename: "Tweet",
   id: string,
   content: string,
-  image?: string | null,
+  imageUri?: string | null,
   userID: string,
   user?: User | null,
   likes?: ModelLikeConnection | null,
@@ -169,7 +198,7 @@ export type Fleet = {
   id: string,
   type: string,
   text?: string | null,
-  image?: string | null,
+  imageUri?: string | null,
   userID: string,
   user?: User | null,
   createdAt: string,
@@ -189,18 +218,22 @@ export type DeleteUserInput = {
   id: string,
 };
 
-export type CreateChatRoomUserInput = {
+export type CreatePostInput = {
   id?: string | null,
+  videoUri: string,
+  description: string,
   userID: string,
-  chatRoomID: string,
+  songID: string,
 };
 
-export type ModelChatRoomUserConditionInput = {
+export type ModelPostConditionInput = {
+  videoUri?: ModelStringInput | null,
+  description?: ModelStringInput | null,
   userID?: ModelIDInput | null,
-  chatRoomID?: ModelIDInput | null,
-  and?: Array< ModelChatRoomUserConditionInput | null > | null,
-  or?: Array< ModelChatRoomUserConditionInput | null > | null,
-  not?: ModelChatRoomUserConditionInput | null,
+  songID?: ModelIDInput | null,
+  and?: Array< ModelPostConditionInput | null > | null,
+  or?: Array< ModelPostConditionInput | null > | null,
+  not?: ModelPostConditionInput | null,
 };
 
 export type ModelIDInput = {
@@ -217,6 +250,56 @@ export type ModelIDInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
   size?: ModelSizeInput | null,
+};
+
+export type UpdatePostInput = {
+  id: string,
+  videoUri?: string | null,
+  description?: string | null,
+  userID?: string | null,
+  songID?: string | null,
+};
+
+export type DeletePostInput = {
+  id: string,
+};
+
+export type CreateSongInput = {
+  id?: string | null,
+  name: string,
+  imageUri?: string | null,
+};
+
+export type ModelSongConditionInput = {
+  name?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
+  and?: Array< ModelSongConditionInput | null > | null,
+  or?: Array< ModelSongConditionInput | null > | null,
+  not?: ModelSongConditionInput | null,
+};
+
+export type UpdateSongInput = {
+  id: string,
+  name?: string | null,
+  imageUri?: string | null,
+};
+
+export type DeleteSongInput = {
+  id: string,
+};
+
+export type CreateChatRoomUserInput = {
+  id?: string | null,
+  userID: string,
+  chatRoomID: string,
+};
+
+export type ModelChatRoomUserConditionInput = {
+  userID?: ModelIDInput | null,
+  chatRoomID?: ModelIDInput | null,
+  and?: Array< ModelChatRoomUserConditionInput | null > | null,
+  or?: Array< ModelChatRoomUserConditionInput | null > | null,
+  not?: ModelChatRoomUserConditionInput | null,
 };
 
 export type UpdateChatRoomUserInput = {
@@ -283,13 +366,13 @@ export type DeleteMessageInput = {
 export type CreateTweetInput = {
   id?: string | null,
   content: string,
-  image?: string | null,
+  imageUri?: string | null,
   userID: string,
 };
 
 export type ModelTweetConditionInput = {
   content?: ModelStringInput | null,
-  image?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
   userID?: ModelIDInput | null,
   and?: Array< ModelTweetConditionInput | null > | null,
   or?: Array< ModelTweetConditionInput | null > | null,
@@ -299,7 +382,7 @@ export type ModelTweetConditionInput = {
 export type UpdateTweetInput = {
   id: string,
   content?: string | null,
-  image?: string | null,
+  imageUri?: string | null,
   userID?: string | null,
 };
 
@@ -311,14 +394,14 @@ export type CreateFleetInput = {
   id?: string | null,
   type: string,
   text?: string | null,
-  image?: string | null,
+  imageUri?: string | null,
   userID: string,
 };
 
 export type ModelFleetConditionInput = {
   type?: ModelStringInput | null,
   text?: ModelStringInput | null,
-  image?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
   userID?: ModelIDInput | null,
   and?: Array< ModelFleetConditionInput | null > | null,
   or?: Array< ModelFleetConditionInput | null > | null,
@@ -329,7 +412,7 @@ export type UpdateFleetInput = {
   id: string,
   type?: string | null,
   text?: string | null,
-  image?: string | null,
+  imageUri?: string | null,
   userID?: string | null,
 };
 
@@ -361,6 +444,52 @@ export type DeleteLikeInput = {
   id: string,
 };
 
+export type CreateProfileTypeInput = {
+  id?: string | null,
+  description: string,
+  text?: string | null,
+  imageUri?: string | null,
+  background?: string | null,
+  userID: string,
+};
+
+export type ModelProfileTypeConditionInput = {
+  description?: ModelStringInput | null,
+  text?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
+  background?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelProfileTypeConditionInput | null > | null,
+  or?: Array< ModelProfileTypeConditionInput | null > | null,
+  not?: ModelProfileTypeConditionInput | null,
+};
+
+export type ProfileType = {
+  __typename: "ProfileType",
+  id: string,
+  description: string,
+  text?: string | null,
+  imageUri?: string | null,
+  background?: string | null,
+  userID: string,
+  user?: User | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateProfileTypeInput = {
+  id: string,
+  description?: string | null,
+  text?: string | null,
+  imageUri?: string | null,
+  background?: string | null,
+  userID?: string | null,
+};
+
+export type DeleteProfileTypeInput = {
+  id: string,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -376,6 +505,32 @@ export type ModelUserFilterInput = {
 export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items?:  Array<User | null > | null,
+  nextToken?: string | null,
+};
+
+export type ModelPostFilterInput = {
+  id?: ModelIDInput | null,
+  videoUri?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  songID?: ModelIDInput | null,
+  and?: Array< ModelPostFilterInput | null > | null,
+  or?: Array< ModelPostFilterInput | null > | null,
+  not?: ModelPostFilterInput | null,
+};
+
+export type ModelSongFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
+  and?: Array< ModelSongFilterInput | null > | null,
+  or?: Array< ModelSongFilterInput | null > | null,
+  not?: ModelSongFilterInput | null,
+};
+
+export type ModelSongConnection = {
+  __typename: "ModelSongConnection",
+  items?:  Array<Song | null > | null,
   nextToken?: string | null,
 };
 
@@ -416,7 +571,7 @@ export type ModelMessageFilterInput = {
 export type ModelTweetFilterInput = {
   id?: ModelIDInput | null,
   content?: ModelStringInput | null,
-  image?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
   userID?: ModelIDInput | null,
   and?: Array< ModelTweetFilterInput | null > | null,
   or?: Array< ModelTweetFilterInput | null > | null,
@@ -427,11 +582,29 @@ export type ModelFleetFilterInput = {
   id?: ModelIDInput | null,
   type?: ModelStringInput | null,
   text?: ModelStringInput | null,
-  image?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
   userID?: ModelIDInput | null,
   and?: Array< ModelFleetFilterInput | null > | null,
   or?: Array< ModelFleetFilterInput | null > | null,
   not?: ModelFleetFilterInput | null,
+};
+
+export type ModelProfileTypeFilterInput = {
+  id?: ModelIDInput | null,
+  description?: ModelStringInput | null,
+  text?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
+  background?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelProfileTypeFilterInput | null > | null,
+  or?: Array< ModelProfileTypeFilterInput | null > | null,
+  not?: ModelProfileTypeFilterInput | null,
+};
+
+export type ModelProfileTypeConnection = {
+  __typename: "ModelProfileTypeConnection",
+  items?:  Array<ProfileType | null > | null,
+  nextToken?: string | null,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -464,13 +637,27 @@ export type CreateUserMutation = {
     imageUri?: string | null,
     email?: string | null,
     status?: string | null,
+    posts?:  {
+      __typename: "ModelPostConnection",
+      items?:  Array< {
+        __typename: "Post",
+        id: string,
+        videoUri: string,
+        description: string,
+        userID: string,
+        songID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
         __typename: "Tweet",
         id: string,
         content: string,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -496,7 +683,7 @@ export type CreateUserMutation = {
         id: string,
         type: string,
         text?: string | null,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -522,13 +709,27 @@ export type UpdateUserMutation = {
     imageUri?: string | null,
     email?: string | null,
     status?: string | null,
+    posts?:  {
+      __typename: "ModelPostConnection",
+      items?:  Array< {
+        __typename: "Post",
+        id: string,
+        videoUri: string,
+        description: string,
+        userID: string,
+        songID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
         __typename: "Tweet",
         id: string,
         content: string,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -554,7 +755,7 @@ export type UpdateUserMutation = {
         id: string,
         type: string,
         text?: string | null,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -580,13 +781,27 @@ export type DeleteUserMutation = {
     imageUri?: string | null,
     email?: string | null,
     status?: string | null,
+    posts?:  {
+      __typename: "ModelPostConnection",
+      items?:  Array< {
+        __typename: "Post",
+        id: string,
+        videoUri: string,
+        description: string,
+        userID: string,
+        songID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
         __typename: "Tweet",
         id: string,
         content: string,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -612,13 +827,220 @@ export type DeleteUserMutation = {
         id: string,
         type: string,
         text?: string | null,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreatePostMutationVariables = {
+  input: CreatePostInput,
+  condition?: ModelPostConditionInput | null,
+};
+
+export type CreatePostMutation = {
+  createPost?:  {
+    __typename: "Post",
+    id: string,
+    videoUri: string,
+    description: string,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID: string,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePostMutationVariables = {
+  input: UpdatePostInput,
+  condition?: ModelPostConditionInput | null,
+};
+
+export type UpdatePostMutation = {
+  updatePost?:  {
+    __typename: "Post",
+    id: string,
+    videoUri: string,
+    description: string,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID: string,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePostMutationVariables = {
+  input: DeletePostInput,
+  condition?: ModelPostConditionInput | null,
+};
+
+export type DeletePostMutation = {
+  deletePost?:  {
+    __typename: "Post",
+    id: string,
+    videoUri: string,
+    description: string,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID: string,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateSongMutationVariables = {
+  input: CreateSongInput,
+  condition?: ModelSongConditionInput | null,
+};
+
+export type CreateSongMutation = {
+  createSong?:  {
+    __typename: "Song",
+    id: string,
+    name: string,
+    imageUri?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateSongMutationVariables = {
+  input: UpdateSongInput,
+  condition?: ModelSongConditionInput | null,
+};
+
+export type UpdateSongMutation = {
+  updateSong?:  {
+    __typename: "Song",
+    id: string,
+    name: string,
+    imageUri?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteSongMutationVariables = {
+  input: DeleteSongInput,
+  condition?: ModelSongConditionInput | null,
+};
+
+export type DeleteSongMutation = {
+  deleteSong?:  {
+    __typename: "Song",
+    id: string,
+    name: string,
+    imageUri?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -643,6 +1065,10 @@ export type CreateChatRoomUserMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -706,6 +1132,10 @@ export type UpdateChatRoomUserMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -769,6 +1199,10 @@ export type DeleteChatRoomUserMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1035,6 +1469,10 @@ export type CreateMessageMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1099,6 +1537,10 @@ export type UpdateMessageMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1163,6 +1605,10 @@ export type DeleteMessageMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1216,7 +1662,7 @@ export type CreateTweetMutation = {
     __typename: "Tweet",
     id: string,
     content: string,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -1226,6 +1672,10 @@ export type CreateTweetMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1268,7 +1718,7 @@ export type UpdateTweetMutation = {
     __typename: "Tweet",
     id: string,
     content: string,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -1278,6 +1728,10 @@ export type UpdateTweetMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1320,7 +1774,7 @@ export type DeleteTweetMutation = {
     __typename: "Tweet",
     id: string,
     content: string,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -1330,6 +1784,10 @@ export type DeleteTweetMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1373,7 +1831,7 @@ export type CreateFleetMutation = {
     id: string,
     type: string,
     text?: string | null,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -1383,6 +1841,10 @@ export type CreateFleetMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1414,7 +1876,7 @@ export type UpdateFleetMutation = {
     id: string,
     type: string,
     text?: string | null,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -1424,6 +1886,10 @@ export type UpdateFleetMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1455,7 +1921,7 @@ export type DeleteFleetMutation = {
     id: string,
     type: string,
     text?: string | null,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -1465,6 +1931,10 @@ export type DeleteFleetMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1504,6 +1974,10 @@ export type CreateLikeMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1523,7 +1997,7 @@ export type CreateLikeMutation = {
       __typename: "Tweet",
       id: string,
       content: string,
-      image?: string | null,
+      imageUri?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -1567,6 +2041,10 @@ export type UpdateLikeMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1586,7 +2064,7 @@ export type UpdateLikeMutation = {
       __typename: "Tweet",
       id: string,
       content: string,
-      image?: string | null,
+      imageUri?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -1630,6 +2108,10 @@ export type DeleteLikeMutation = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1649,7 +2131,7 @@ export type DeleteLikeMutation = {
       __typename: "Tweet",
       id: string,
       content: string,
-      image?: string | null,
+      imageUri?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -1674,6 +2156,144 @@ export type DeleteLikeMutation = {
   } | null,
 };
 
+export type CreateProfileTypeMutationVariables = {
+  input: CreateProfileTypeInput,
+  condition?: ModelProfileTypeConditionInput | null,
+};
+
+export type CreateProfileTypeMutation = {
+  createProfileType?:  {
+    __typename: "ProfileType",
+    id: string,
+    description: string,
+    text?: string | null,
+    imageUri?: string | null,
+    background?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateProfileTypeMutationVariables = {
+  input: UpdateProfileTypeInput,
+  condition?: ModelProfileTypeConditionInput | null,
+};
+
+export type UpdateProfileTypeMutation = {
+  updateProfileType?:  {
+    __typename: "ProfileType",
+    id: string,
+    description: string,
+    text?: string | null,
+    imageUri?: string | null,
+    background?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteProfileTypeMutationVariables = {
+  input: DeleteProfileTypeInput,
+  condition?: ModelProfileTypeConditionInput | null,
+};
+
+export type DeleteProfileTypeMutation = {
+  deleteProfileType?:  {
+    __typename: "ProfileType",
+    id: string,
+    description: string,
+    text?: string | null,
+    imageUri?: string | null,
+    background?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -1687,13 +2307,27 @@ export type GetUserQuery = {
     imageUri?: string | null,
     email?: string | null,
     status?: string | null,
+    posts?:  {
+      __typename: "ModelPostConnection",
+      items?:  Array< {
+        __typename: "Post",
+        id: string,
+        videoUri: string,
+        description: string,
+        userID: string,
+        songID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
         __typename: "Tweet",
         id: string,
         content: string,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -1719,7 +2353,7 @@ export type GetUserQuery = {
         id: string,
         type: string,
         text?: string | null,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -1748,6 +2382,10 @@ export type ListUsersQuery = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1760,6 +2398,136 @@ export type ListUsersQuery = {
         __typename: "ModelFleetConnection",
         nextToken?: string | null,
       } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetPostQueryVariables = {
+  id: string,
+};
+
+export type GetPostQuery = {
+  getPost?:  {
+    __typename: "Post",
+    id: string,
+    videoUri: string,
+    description: string,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID: string,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPostsQueryVariables = {
+  filter?: ModelPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPostsQuery = {
+  listPosts?:  {
+    __typename: "ModelPostConnection",
+    items?:  Array< {
+      __typename: "Post",
+      id: string,
+      videoUri: string,
+      description: string,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      songID: string,
+      song?:  {
+        __typename: "Song",
+        id: string,
+        name: string,
+        imageUri?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetSongQueryVariables = {
+  id: string,
+};
+
+export type GetSongQuery = {
+  getSong?:  {
+    __typename: "Song",
+    id: string,
+    name: string,
+    imageUri?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListSongsQueryVariables = {
+  filter?: ModelSongFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSongsQuery = {
+  listSongs?:  {
+    __typename: "ModelSongConnection",
+    items?:  Array< {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -1785,6 +2553,10 @@ export type GetChatRoomUserQuery = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1991,6 +2763,10 @@ export type GetMessageQuery = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2083,7 +2859,7 @@ export type GetTweetQuery = {
     __typename: "Tweet",
     id: string,
     content: string,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -2093,6 +2869,10 @@ export type GetTweetQuery = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2138,7 +2918,7 @@ export type ListTweetsQuery = {
       __typename: "Tweet",
       id: string,
       content: string,
-      image?: string | null,
+      imageUri?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -2172,7 +2952,7 @@ export type GetFleetQuery = {
     id: string,
     type: string,
     text?: string | null,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -2182,6 +2962,10 @@ export type GetFleetQuery = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2216,7 +3000,87 @@ export type ListFleetsQuery = {
       id: string,
       type: string,
       text?: string | null,
-      image?: string | null,
+      imageUri?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetProfileTypeQueryVariables = {
+  id: string,
+};
+
+export type GetProfileTypeQuery = {
+  getProfileType?:  {
+    __typename: "ProfileType",
+    id: string,
+    description: string,
+    text?: string | null,
+    imageUri?: string | null,
+    background?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListProfileTypesQueryVariables = {
+  filter?: ModelProfileTypeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProfileTypesQuery = {
+  listProfileTypes?:  {
+    __typename: "ModelProfileTypeConnection",
+    items?:  Array< {
+      __typename: "ProfileType",
+      id: string,
+      description: string,
+      text?: string | null,
+      imageUri?: string | null,
+      background?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -2288,13 +3152,27 @@ export type OnCreateUserSubscription = {
     imageUri?: string | null,
     email?: string | null,
     status?: string | null,
+    posts?:  {
+      __typename: "ModelPostConnection",
+      items?:  Array< {
+        __typename: "Post",
+        id: string,
+        videoUri: string,
+        description: string,
+        userID: string,
+        songID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
         __typename: "Tweet",
         id: string,
         content: string,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -2320,7 +3198,7 @@ export type OnCreateUserSubscription = {
         id: string,
         type: string,
         text?: string | null,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -2341,13 +3219,27 @@ export type OnUpdateUserSubscription = {
     imageUri?: string | null,
     email?: string | null,
     status?: string | null,
+    posts?:  {
+      __typename: "ModelPostConnection",
+      items?:  Array< {
+        __typename: "Post",
+        id: string,
+        videoUri: string,
+        description: string,
+        userID: string,
+        songID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
         __typename: "Tweet",
         id: string,
         content: string,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -2373,7 +3265,7 @@ export type OnUpdateUserSubscription = {
         id: string,
         type: string,
         text?: string | null,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -2394,13 +3286,27 @@ export type OnDeleteUserSubscription = {
     imageUri?: string | null,
     email?: string | null,
     status?: string | null,
+    posts?:  {
+      __typename: "ModelPostConnection",
+      items?:  Array< {
+        __typename: "Post",
+        id: string,
+        videoUri: string,
+        description: string,
+        userID: string,
+        songID: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
         __typename: "Tweet",
         id: string,
         content: string,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
@@ -2426,13 +3332,190 @@ export type OnDeleteUserSubscription = {
         id: string,
         type: string,
         text?: string | null,
-        image?: string | null,
+        imageUri?: string | null,
         userID: string,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreatePostSubscription = {
+  onCreatePost?:  {
+    __typename: "Post",
+    id: string,
+    videoUri: string,
+    description: string,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID: string,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePostSubscription = {
+  onUpdatePost?:  {
+    __typename: "Post",
+    id: string,
+    videoUri: string,
+    description: string,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID: string,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePostSubscription = {
+  onDeletePost?:  {
+    __typename: "Post",
+    id: string,
+    videoUri: string,
+    description: string,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID: string,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateSongSubscription = {
+  onCreateSong?:  {
+    __typename: "Song",
+    id: string,
+    name: string,
+    imageUri?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateSongSubscription = {
+  onUpdateSong?:  {
+    __typename: "Song",
+    id: string,
+    name: string,
+    imageUri?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteSongSubscription = {
+  onDeleteSong?:  {
+    __typename: "Song",
+    id: string,
+    name: string,
+    imageUri?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2452,6 +3535,10 @@ export type OnCreateChatRoomUserSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2510,6 +3597,10 @@ export type OnUpdateChatRoomUserSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2568,6 +3659,10 @@ export type OnDeleteChatRoomUserSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2814,6 +3909,10 @@ export type OnCreateMessageSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2873,6 +3972,10 @@ export type OnUpdateMessageSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2932,6 +4035,10 @@ export type OnDeleteMessageSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2980,7 +4087,7 @@ export type OnCreateTweetSubscription = {
     __typename: "Tweet",
     id: string,
     content: string,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -2990,6 +4097,10 @@ export type OnCreateTweetSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3027,7 +4138,7 @@ export type OnUpdateTweetSubscription = {
     __typename: "Tweet",
     id: string,
     content: string,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -3037,6 +4148,10 @@ export type OnUpdateTweetSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3074,7 +4189,7 @@ export type OnDeleteTweetSubscription = {
     __typename: "Tweet",
     id: string,
     content: string,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -3084,6 +4199,10 @@ export type OnDeleteTweetSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3122,7 +4241,7 @@ export type OnCreateFleetSubscription = {
     id: string,
     type: string,
     text?: string | null,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -3132,6 +4251,10 @@ export type OnCreateFleetSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3158,7 +4281,7 @@ export type OnUpdateFleetSubscription = {
     id: string,
     type: string,
     text?: string | null,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -3168,6 +4291,10 @@ export type OnUpdateFleetSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3194,7 +4321,7 @@ export type OnDeleteFleetSubscription = {
     id: string,
     type: string,
     text?: string | null,
-    image?: string | null,
+    imageUri?: string | null,
     userID: string,
     user?:  {
       __typename: "User",
@@ -3204,6 +4331,10 @@ export type OnDeleteFleetSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3238,6 +4369,10 @@ export type OnCreateLikeSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3257,7 +4392,7 @@ export type OnCreateLikeSubscription = {
       __typename: "Tweet",
       id: string,
       content: string,
-      image?: string | null,
+      imageUri?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -3296,6 +4431,10 @@ export type OnUpdateLikeSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3315,7 +4454,7 @@ export type OnUpdateLikeSubscription = {
       __typename: "Tweet",
       id: string,
       content: string,
-      image?: string | null,
+      imageUri?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -3354,6 +4493,10 @@ export type OnDeleteLikeSubscription = {
       imageUri?: string | null,
       email?: string | null,
       status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3373,7 +4516,7 @@ export type OnDeleteLikeSubscription = {
       __typename: "Tweet",
       id: string,
       content: string,
-      image?: string | null,
+      imageUri?: string | null,
       userID: string,
       user?:  {
         __typename: "User",
@@ -3393,6 +4536,129 @@ export type OnDeleteLikeSubscription = {
       createdAt: string,
       updatedAt: string,
     },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateProfileTypeSubscription = {
+  onCreateProfileType?:  {
+    __typename: "ProfileType",
+    id: string,
+    description: string,
+    text?: string | null,
+    imageUri?: string | null,
+    background?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateProfileTypeSubscription = {
+  onUpdateProfileType?:  {
+    __typename: "ProfileType",
+    id: string,
+    description: string,
+    text?: string | null,
+    imageUri?: string | null,
+    background?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteProfileTypeSubscription = {
+  onDeleteProfileType?:  {
+    __typename: "ProfileType",
+    id: string,
+    description: string,
+    text?: string | null,
+    imageUri?: string | null,
+    background?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,

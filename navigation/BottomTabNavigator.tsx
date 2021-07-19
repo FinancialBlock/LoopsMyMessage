@@ -17,6 +17,8 @@ import ChatScreen from '../screens/ChatScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 import UserProfileScreen from "../screens/UserProfileScreen";
 
+import PostView from "../components/Post";
+
 const BottomTab = createMaterialTopTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -34,7 +36,7 @@ export default function BottomTabNavigator() {
       backGroundColor: Colors[colorScheme].background, height: 5,
       },
           showIcon: true,
-          
+
 
       }}>
       <BottomTab.Screen
@@ -51,13 +53,18 @@ export default function BottomTabNavigator() {
 
       />
         <BottomTab.Screen
-            name="Status"
+            name="Explore"
             component={ChatScreen}
 
         />
         <BottomTab.Screen
             name="Profile"
             component={UserProfileScreen}
+
+        />
+        <BottomTab.Screen
+            name="Post"
+            component={PostView}
 
         />
     </BottomTab.Navigator>

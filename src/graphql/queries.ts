@@ -11,11 +11,23 @@ export const getUser = /* GraphQL */ `
       imageUri
       email
       status
+      posts {
+        items {
+          id
+          videoUri
+          description
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
           content
-          image
+          imageUri
           userID
           createdAt
           updatedAt
@@ -37,7 +49,7 @@ export const getUser = /* GraphQL */ `
           id
           type
           text
-          image
+          imageUri
           userID
           createdAt
           updatedAt
@@ -63,6 +75,9 @@ export const listUsers = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -72,6 +87,114 @@ export const listUsers = /* GraphQL */ `
         fleets {
           nextToken
         }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getPost = /* GraphQL */ `
+  query GetPost($id: ID!) {
+    getPost(id: $id) {
+      id
+      videoUri
+      description
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPosts = /* GraphQL */ `
+  query ListPosts(
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        videoUri
+        description
+        userID
+        user {
+          id
+          name
+          username
+          imageUri
+          email
+          status
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSong = /* GraphQL */ `
+  query GetSong($id: ID!) {
+    getSong(id: $id) {
+      id
+      name
+      imageUri
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSongs = /* GraphQL */ `
+  query ListSongs(
+    $filter: ModelSongFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSongs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        imageUri
         createdAt
         updatedAt
       }
@@ -92,6 +215,9 @@ export const getChatRoomUser = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -264,6 +390,9 @@ export const getMessage = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -340,7 +469,7 @@ export const getTweet = /* GraphQL */ `
     getTweet(id: $id) {
       id
       content
-      image
+      imageUri
       userID
       user {
         id
@@ -349,6 +478,9 @@ export const getTweet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -386,7 +518,7 @@ export const listTweets = /* GraphQL */ `
       items {
         id
         content
-        image
+        imageUri
         userID
         user {
           id
@@ -414,7 +546,7 @@ export const getFleet = /* GraphQL */ `
       id
       type
       text
-      image
+      imageUri
       userID
       user {
         id
@@ -423,6 +555,9 @@ export const getFleet = /* GraphQL */ `
         imageUri
         email
         status
+        posts {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -451,7 +586,74 @@ export const listFleets = /* GraphQL */ `
         id
         type
         text
-        image
+        imageUri
+        userID
+        user {
+          id
+          name
+          username
+          imageUri
+          email
+          status
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getProfileType = /* GraphQL */ `
+  query GetProfileType($id: ID!) {
+    getProfileType(id: $id) {
+      id
+      description
+      text
+      imageUri
+      background
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        email
+        status
+        posts {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listProfileTypes = /* GraphQL */ `
+  query ListProfileTypes(
+    $filter: ModelProfileTypeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listProfileTypes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        description
+        text
+        imageUri
+        background
         userID
         user {
           id

@@ -3,9 +3,12 @@ import {View, Text, StyleSheet, FlatList} from "react-native";
 import UserProfile from "../components/UserProfile/UserProfile";
 import ChatListItem from "../components/ChatListItems";
 import usersdata from "../data/Users"
+import Users from "../data/Users";
 
 
 const UserProfileScreen = () => {
+    const user = usersdata[0];
+
 
 return (
     <View style={styles.container}>
@@ -15,7 +18,7 @@ return (
             renderItem={({ item }) => <UserProfile user={item} />}
             keyExtractor={(item) => item.id}
         />*/}
-        <UserProfile user={{id: '1', name: 'blockchain'}}/>
+        <UserProfile user={user}/>
 
     </View>
 )

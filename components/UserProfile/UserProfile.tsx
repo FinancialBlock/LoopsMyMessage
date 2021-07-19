@@ -1,43 +1,48 @@
 import React from "react";
-import {View, Text, ImageBackground, ScrollView, SafeAreaView, TouchableOpacity} from "react-native";
+import {View, Text, ImageBackground, ScrollView, SafeAreaView, TouchableOpacity, Image} from "react-native";
 import styles from "./styles";
-import {User} from "../../types";
+import {ProfileType, User} from "../../types";
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ChatRoom} from "../../types";
+import FleetProfile from "../FleetProfile";
 
 
 export type UserProfileProps = {
     user: User;
+
 }
 const UserProfile = (props:UserProfileProps) => {
-    const {user: {name}} = props;
+    const {user: {name, imageUri}} = props;
 
 
 
     return (
-    <SafeAreaView style={styles.container}>
+    <View>
         <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.titleBar}>
-            <Entypo name="arrow-with-circle-left" size={24} color="#52575D" />
-            <Entypo name="dots-three-horizontal" size={24} color="#52575D" />
-        </View>
+            <View>
+                {/*<Image style={styles.background} source={{ uri: imageUri }} />*/}
+
+
+                    <View style={styles.titleBar}>
+                        <Entypo name="arrow-with-circle-left" size={24} color="#52575D" />
+                        <Entypo name="dots-three-horizontal" size={24} color="#52575D" />
+                    </View>
+         {/*   <View>
+                <Image style={styles.background} source={{ uri: imageUri }} />
+            </View>*/}
+            </View>
 
 
             <View style={{alignSelf: 'center'}}>
-                <View style={styles.profileImage}>
-                    <ImageBackground
-                        style={styles.profileImage}
-                        source={{
-                            uri: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTApJdGN6I8NjFvhKfOBIwjz759q53b8HBckMLXl_blfq5RXZFy',
-                        }}
-                    />
+                <View>
+                    <Image style={styles.profileImage} source={{ uri: imageUri }} />
                 </View>
                 <View style={styles.dm}>
                     <TouchableOpacity>
-                        <MaterialIcons name="chat" size={18} color="#DFD8C8" />
+                        <MaterialIcons name="chat" size={18} color="#DFD8C8"  />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.active} />
@@ -45,20 +50,22 @@ const UserProfile = (props:UserProfileProps) => {
                     <View style={styles.add}>
                         <AntDesign
                             name="pluscircle"
-                            size={48}
+                            size={30}
                             color="#185ADB"
-                            style={{marginTop: 6, marginLeft: 2}}
+                            style={{marginTop: 30, marginLeft: 30}}
                         />
                     </View>
                 </TouchableOpacity>
             </View>
+
+
 
             <View style={styles.infoContainer}>
                 <Text style={[styles.text, {fontWeight: 'bold', fontSize: 36}]}>
                     @{name}
                 </Text>
                 <Text style={[styles.text, {color: '#AEB5BC', fontSize: 14}]}>
-                    I love to take photos and learn movies
+                    hello world this is a description
                 </Text>
             </View>
 
@@ -67,6 +74,14 @@ const UserProfile = (props:UserProfileProps) => {
                     <Text style={styles.userBtnTxt}>Subscribe</Text>
                 </TouchableOpacity>
             </View>
+            {/*<View style={styles.infoContainer}>
+                <Text style={[styles.text, {fontWeight: 'bold', fontSize: 36}]}>
+                    @{name}
+                </Text>
+                <Text style={[styles.text, {color: '#AEB5BC', fontSize: 14}]}>
+                    hello world this is a description
+                </Text>
+            </View>*/}
 
             <View style={styles.statsContainer}>
                 <View style={styles.statsBox}>
@@ -102,7 +117,7 @@ const UserProfile = (props:UserProfileProps) => {
             </View>
 
         </ScrollView>
-    </SafeAreaView>
+        </View>
 )
 }
 

@@ -1,17 +1,27 @@
 export default [{
     id: 'u1',
     name: 'Vadim',
-    imageUri: 'https://s3.amazonaws.com/heights-photos/wp-content/uploads/2020/09/14194211/bigsean-1024x683.jpeg',
+    imageUri: 'https://i.imgur.com/TkIrScD.png',
     status: "Hello there, how are you",
     description: "feeling really good today",
+    followers: "how are you",
+    following: "100",
 }, {
     id: 'u2',
     name: 'Lukas',
     imageUri: 'https://cdn.vox-cdn.com/thumbor/rr1eekloqaHvb44I0jHZOcBg0WA=/0x0:3543x5315/1200x800/filters:focal(1656x1099:2222x1665)/cdn.vox-cdn.com/uploads/chorus_image/image/61543925/1038614444.jpg.0.jpg',
+    status: "Hello there, how are you",
+    description: "feeling really good today",
+    followers: "100",
+    following: "100",
 }, {
     id: 'u3',
     name: 'Daniil',
     imageUri: 'https://www.biography.com/.image/t_share/MTgwMzE2NjEwMjk5NDM4OTU2/gettyimages-1136021131.jpg',
+    status: "Hello there, how are you",
+    description: "feeling really good today",
+    followers: "100",
+    following: "100",
 }, {
     id: 'u4',
     name: 'Alex',
