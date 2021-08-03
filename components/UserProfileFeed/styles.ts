@@ -1,55 +1,44 @@
-import React from "react";
-import {View, Text, StyleSheet, FlatList, Image} from "react-native";
-import UserProfile from "../components/UserProfile/UserProfile";
-import ChatListItem from "../components/ChatListItems";
-import usersdata from "../data/Users";
-import Users from "../data/Users";
-import ProfileTab from "../navigation/UserProfileTabs";
-import UserProfileFeed from "../components/UserProfileFeed";
-import UserProfilePost from "../components/UserProfilePost";
-import UselessTextInput from "../components/EditProfile";
-import EditProfileButton from "../components/EditProfileButton";
 
-
-
-
-const UserProfileScreen = () => {
-    const user = usersdata[0];
-    const post = usersdata[0].imageUri;
-
-
-
-
-
-return (
-    <View style={styles.container}>
-        {/*<FlatList
-            style={{width: '100%'}}
-            data={usersdata}
-            renderItem={({ item }) => <UserProfile user={item} />}
-            keyExtractor={(item) => item.id}
-        />*/}
-        <UserProfile user={user}/>
-        <UserProfilePost user={user} post={post}   />
-
-
-    </View>
-)
-}
+import { StyleSheet } from "react-native";
+import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF',
     },
-    text: {
+    headerText: {
         fontFamily: 'HelveticaNeue',
         color: 'black',
+        opacity: .4,
+        fontSize: 30,
+        fontWeight:'bold',
+
     },
-    image: {
-        flex: 1,
-        height: undefined,
-        width: undefined,
+    postIcons: {
+        flexDirection: 'row',
+        width:100,
+        height: 160,
+        marginRight: 10,
+        marginLeft:2,
+        borderColor: 'white',
+        borderRadius: 13,
+        marginBottom: 10,
+        padding: 10,
+
+
+    },
+
+
+    showAll: {
+        alignContent: "center",
+        alignSelf: "center",
+        padding: 6,
+        borderWidth: 1,
+        marginTop: 5,
+        borderRadius: 14,
+        borderTopColor: 'red',
+
     },
     titleBar: {
         flexDirection: 'row',
@@ -64,10 +53,17 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     profileImage: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        overflow: 'hidden',
+        width: 105,
+        height: 120,
+        marginTop: 10,
+        borderRadius: 30,
+        padding: 15,
+        alignItems: 'center',
+        borderWidth: 3,
+        borderColor: '#449bd4',
+
+
+
     },
     dm: {
         backgroundColor: '#41444B',
@@ -176,7 +172,15 @@ const styles = StyleSheet.create({
     userBtnTxt: {
         color: '#2e64e5',
     },
+    background: {
+        width: '100%',
+
+        height: 200,
+
+        overflow: 'hidden',
+        position: 'absolute',
+
+    },
 });
 
-
-export default UserProfileScreen;
+export default styles;

@@ -19,6 +19,7 @@ import {Feather, FontAwesome5, MaterialCommunityIcons, MaterialIcons, Octicons} 
 import ChatRoomScreens from "../screens/ChatRoom";
 import ContactScreen from "../screens/ContactScreen";
 import FleetScreen from "../screens/FleetScreen";
+import UselessTextInput from "../components/EditProfile";
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -72,28 +73,42 @@ function RootNavigator() {
 
         />
 
+
+
         <Stack.Screen
             name="Messages"
             component={ChatRoomScreens}
-            options={({ route })  => ({
-                title: route.params.name,
-                headerRight: () => (
-                    <View style={{
-                        flexDirection: 'row',
-                        width: 100,
-                        justifyContent: 'space-between',
-                        marginRight: 10,
-                    }}>
-                        <FontAwesome5 name="video" size={22} color={'white'} />
-                        <MaterialIcons name="call" size={22} color={'white'} />
-                        <MaterialCommunityIcons name="dots-vertical" size={22} color={'white'} />
-                    </View>
-                )
-            })}
+            options={({ route })  => {
+                return {
+                    title: route.params.name,
+                    tabBarVisible: false,
+                    headerRight: () => <View style={{
+                            flexDirection: 'row',
+                            width: 100,
+                            justifyContent: 'space-between',
+                            marginRight: 10,
+                        }}>
+                            <FontAwesome5 name="video" size={22} color={'white'}/>
+                            <MaterialIcons name="call" size={22} color={'white'}/>
+                            <MaterialCommunityIcons name="dots-vertical" size={22} color={'white'}/>
+                        </View>
+                };
+            }}
         />
         <Stack.Screen
             name="Contacts"
             component={ContactScreen}
+
+        />
+        <Stack.Screen
+            name="UpdateProfile"
+            component={ContactScreen}
+
+        />
+
+        <Stack.Screen
+            name="ProfileSettings"
+            component={UselessTextInput}
 
         />
 

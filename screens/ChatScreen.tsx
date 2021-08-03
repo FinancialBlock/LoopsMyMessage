@@ -35,8 +35,6 @@ export default function ChatsScreen() {
                 )
 
                 setChatRooms(userData.data.getUser.chatRoomUser.items)
-                
-
             } catch (e) {
                 console.log(e);
             }
@@ -54,6 +52,7 @@ export default function ChatsScreen() {
                 renderItem={({ item }) => <ChatListItem chatRoom={item.chatRoom} />}
                 keyExtractor={(item) => item.id}
                 showsHorizontalScrollIndicator={false}
+
             />
             </ScrollView>
             <NewMessageButton />

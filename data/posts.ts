@@ -1,8 +1,8 @@
 export default [
   {
-    id: 'p1',
+    id: '0',
     user: {
-      id: 'u4',
+      id: '0',
       username: 'bigblock',
       imageUri:
         'https://cdn.vox-cdn.com/thumbor/SEyPwlAyVZy62pmarwy1h89yLt8=/0x4:600x404/1200x800/filters:focal(0x4:600x404)/cdn.vox-cdn.com/photo_images/1347393/23-Oct-10_103931147CP031_Golden_State.jpg',
@@ -18,9 +18,9 @@ export default [
     tips: 100,
   },
   {
-    id: 'p2',
+    id: '1',
     user: {
-      id: 'u2',
+      id: '1',
       username: 'sean',
       imageUri:
         'https://cdn.vox-cdn.com/thumbor/SEyPwlAyVZy62pmarwy1h89yLt8=/0x4:600x404/1200x800/filters:focal(0x4:600x404)/cdn.vox-cdn.com/photo_images/1347393/23-Oct-10_103931147CP031_Golden_State.jpg',
@@ -36,9 +36,9 @@ export default [
     tips: 100,
   },
   {
-    id: 'p3',
+    id: '3',
     user: {
-      id: 'u3',
+      id: '3',
       username: 'drake',
       imageUri:
         'https://cdn.vox-cdn.com/thumbor/SEyPwlAyVZy62pmarwy1h89yLt8=/0x4:600x404/1200x800/filters:focal(0x4:600x404)/cdn.vox-cdn.com/photo_images/1347393/23-Oct-10_103931147CP031_Golden_State.jpg',

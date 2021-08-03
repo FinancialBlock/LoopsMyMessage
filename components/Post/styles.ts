@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         padding: 5,
         top: -5,
+
     },
     userNames: {
         marginLeft: 10,
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     name: {
         color: "#efefef",
         fontSize: 18,
+        marginLeft: 10,
         fontWeight: 'bold',
         marginVertical: 5,
         top: 0,

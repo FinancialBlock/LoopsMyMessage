@@ -8,6 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ChatRoom} from "../../types";
 import FleetProfile from "../FleetProfile";
+import EditProfileButton from "../EditProfileButton";
 
 
 export type UserProfileProps = {
@@ -15,7 +16,16 @@ export type UserProfileProps = {
 
 }
 const UserProfile = (props:UserProfileProps) => {
-    const {user: {name, imageUri}} = props;
+    const {user: {
+        name,
+        imageUri,
+        username,
+        description,
+        followers,
+        following,
+        loops,
+        post}}
+        = props;
 
 
 
@@ -28,7 +38,7 @@ const UserProfile = (props:UserProfileProps) => {
 
                     <View style={styles.titleBar}>
                         <Entypo name="arrow-with-circle-left" size={24} color="#52575D" />
-                        <Entypo name="dots-three-horizontal" size={24} color="#52575D" />
+                        <EditProfileButton/>
                     </View>
          {/*   <View>
                 <Image style={styles.background} source={{ uri: imageUri }} />
@@ -62,10 +72,10 @@ const UserProfile = (props:UserProfileProps) => {
 
             <View style={styles.infoContainer}>
                 <Text style={[styles.text, {fontWeight: 'bold', fontSize: 36}]}>
-                    @{name}
+                    @{username}
                 </Text>
                 <Text style={[styles.text, {color: '#AEB5BC', fontSize: 14}]}>
-                    hello world this is a description
+                    {description}
                 </Text>
             </View>
 
@@ -85,7 +95,7 @@ const UserProfile = (props:UserProfileProps) => {
 
             <View style={styles.statsContainer}>
                 <View style={styles.statsBox}>
-                    <Text style={[styles.text, {fontSize: 24}]}>483</Text>
+                    <Text style={[styles.text, {fontSize: 24}]}>{post}</Text>
                     <Text style={[styles.text, styles.subText]}>Posts</Text>
                 </View>
                 <View
@@ -93,11 +103,11 @@ const UserProfile = (props:UserProfileProps) => {
                         styles.statsBox,
                         {borderColor: '#DFD8C8', borderLeftWidth: 1, borderRightWidth: 1},
                     ]}>
-                    <Text style={[styles.text, {fontSize: 24}]}>45,844</Text>
+                    <Text style={[styles.text, {fontSize: 24}]}>{followers}</Text>
                     <Text style={[styles.text, styles.subText]}>Followers</Text>
                 </View>
                 <View style={styles.statsBox}>
-                    <Text style={[styles.text, {fontSize: 24}]}>302</Text>
+                    <Text style={[styles.text, {fontSize: 24}]}>{following}</Text>
                     <Text style={[styles.text, styles.subText]}>Following</Text>
                 </View>
                 <View
@@ -106,7 +116,7 @@ const UserProfile = (props:UserProfileProps) => {
                         {borderColor: '#DFD8C8', borderLeftWidth: 1, borderRightWidth: 1},
                     ]}>
                     <View style={styles.statsBox}>
-                        <Text style={[styles.text, {fontSize: 24}]}>6,000</Text>
+                        <Text style={[styles.text, {fontSize: 24}]}>{loops}</Text>
                         <Text style={[styles.text, styles.subText]}>Loops</Text>
                         <MaterialCommunityIcons
                             style={styles.iconloop}

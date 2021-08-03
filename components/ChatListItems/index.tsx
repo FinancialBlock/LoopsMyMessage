@@ -53,6 +53,18 @@ const ChatListItem = (props: ChatListItemProps) => {
         return null;
     }
 
+    const onPress = () => {
+        navigation.navigate('UpdatedProfile', {
+            id: chatRoom.id,
+            name: otherUser.name,
+        })
+    }
+    if (!otherUser) {
+        return null;
+    }
+
+
+
     return (
         <TouchableHighlight underlayColor="#add8e6" onPress={onClick}>
             <View style={styles.container}>

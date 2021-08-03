@@ -1,6 +1,6 @@
 {
   "auth": {
-    "expoloop7fd611c1": {
+    "expolooped52b379": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -16,7 +16,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authexpoloop7fd611c1"
+              "userPoolId": "authexpolooped52b379"
             }
           },
           "additionalAuthenticationProviders": []

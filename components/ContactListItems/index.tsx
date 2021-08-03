@@ -18,6 +18,10 @@ import {
     createChatRoom,
     createChatRoomUser
 } from '../../src/graphql/mutations';
+import {
+    getUser
+} from "../../screens/queries";
+
 
 export type ContactListItemProps = {
     user: User;
@@ -31,6 +35,15 @@ const ContactListItem = (props: ContactListItemProps) => {
     const onClick = async () => {
         try {
 
+
+            //  1. Create a new Chat Room
+            const openCurrentData = await API.graphql(
+                graphqlOperation(
+                    createChatRoom, {
+                        input: {lastMessageID: "zz753fca-e8c3-473b-8e85-b14196e84e16" }
+                    }
+                )
+            )
             //  1. Create a new Chat Room
             const newChatRoomData = await API.graphql(
                 graphqlOperation(
@@ -81,6 +94,12 @@ const ContactListItem = (props: ContactListItemProps) => {
             console.log(e);
         }
     }
+
+    /*const onPress = () => {
+        try {
+            const openchatRoom = await API.graphql(
+                graphqlOperation(
+                    getUser,*/
 
     return (
         <TouchableWithoutFeedback onPress={onClick}>

@@ -12,9 +12,9 @@ import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
+import CameraScreen from '../screens/Camera/';
 import ChatScreen from '../screens/ChatScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, CameraScreenList, TabTwoParamList } from '../types';
 import UserProfileScreen from "../screens/UserProfileScreen";
 
 import PostView from "../components/Post";
@@ -38,13 +38,17 @@ export default function BottomTabNavigator() {
           showIcon: true,
 
 
+
       }}>
       <BottomTab.Screen
         name="Camera"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => <Fontisto name="camera" color={color} size={20} />,
-            tabBarLabel: () => null
+            tabBarLabel: () => null,
+
+
+
         }}
       />
       <BottomTab.Screen
@@ -60,6 +64,7 @@ export default function BottomTabNavigator() {
         <BottomTab.Screen
             name="Profile"
             component={UserProfileScreen}
+
 
         />
         <BottomTab.Screen
@@ -79,15 +84,16 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const TabOneStack = createStackNavigator<CameraScreenList>();
 
 function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        component={CameraScreen}
+        options={{ headerShown: false,}}
+
       />
     </TabOneStack.Navigator>
   );
@@ -106,3 +112,5 @@ function TabTwoNavigator() {
     </TabTwoStack.Navigator>
   );
 }
+
+

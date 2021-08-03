@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 24,
         marginHorizontal: 16,
+        alignContent:"center",
+        alignItems: "center",
     },
     subText: {
         fontSize: 12,
