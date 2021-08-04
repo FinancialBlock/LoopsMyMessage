@@ -13,13 +13,14 @@ type User @model {
 
 type Post @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
-  videoUri: String!
+  videoUri: String
   description: String!
   imageUri: String
+
   userID: ID!
   user: User @connection(fields: ["userID"])
 
-  songID: ID!
+  songID: ID
   song: Song @connection(fields: ["songID"])
 }
 

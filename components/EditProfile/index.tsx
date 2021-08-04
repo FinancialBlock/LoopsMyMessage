@@ -1,21 +1,31 @@
 import React, {Component, useState} from 'react';
-import {TextInput, TouchableOpacity, View, Text, Image} from 'react-native';
+import {TextInput, TouchableOpacity, View, Text, Image, Button} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import styles from "./styles"
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {API, Auth, graphqlOperation} from "aws-amplify";
+import { updateUser} from "../../src/graphql/mutations";
 
 
 
 export default function UselessTextInput() {
     const [user, setUser] = useState();
-    const [updateName, onChange] = React.useState('Name');
+    const [updateName, onChange] = React.useState('name');
     const [updateUsername, onChangeUser] = React.useState('Username');
     const [updateBio, onChangeTextBio] = React.useState('Give us a nice profile description');
     const [updateStatus, onChangeTextStatus] = React.useState('Place a new Status');
 
 
+    async function updateUser() {
+        const user = await Auth.currentAuthenticatedUser();
+        await Auth.updateUserAttributes(user, {
+            'name': 'name'
+        });
+        console.log(updateUser())
+    }
+
     return (
-    <View>
+    <View style={styles.container}>
         <Image style={styles.editimage} source={ {uri: 'http://www.cinelinx.com/wp-content/uploads/2021/02/Black-Clover.jpg'}}/>
         {/*<View style={styles.rowContainer}>
             <Text style={styles.text}> Name </Text>
@@ -76,7 +86,16 @@ export default function UselessTextInput() {
                     value={updateStatus}
                 />
             </View>
-        </View>
+
+
+            <TouchableOpacity
+                onPress={() => updateUser()}
+                style={{ backgroundColor: 'blue', position: "absolute" , bottom: 0}}>
+                <Text style={{ fontSize: 20, color: 'white' }}>Update Profile</Text>
+            </TouchableOpacity>
+            </View>
+
+
 
 
 

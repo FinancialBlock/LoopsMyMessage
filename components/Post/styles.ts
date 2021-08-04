@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
 
         width: '100%',
-        height: Dimensions.get('window').height - 80,
+        height: Dimensions.get('window').height - 130,
     },
     mainContainer: {
         flexDirection: 'row',

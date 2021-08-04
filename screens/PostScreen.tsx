@@ -8,7 +8,7 @@ import {
 import FleetView from "../../components/FleetView";
 import userWithFleets from "../../data/userWithFleets";
 import styles from "./styles"
-import userWithPost from "../data/posts";
+import posts from "../data/posts";
 import Post from "../components/Post";
 import ContactListItem from "../components/ContactListItems";
 import usersdata from "../data/Users";
@@ -16,25 +16,24 @@ import usersdata from "../data/Users";
 
 
 
+
 const PostScreen = () => {
-    const user = userWithPost[0];
-    const post = userWithPost[0];
-
-
-
+    const post = posts[0];
 
 
     return(
         <View>
 
+
             <FlatList
-                data={userWithPost}
-                renderItem={({item}) => <Post user={item}  />}
+                data={posts}
+                renderItem={({item}) => <Post post={item}  />}
                 showsVerticalScrollIndicator={false}
                 snapToInterval={Dimensions.get('window').height - 130}
                 snapToAlignment={'start'}
                 decelerationRate={'fast'}
             />
+
         </View>
     )
 }

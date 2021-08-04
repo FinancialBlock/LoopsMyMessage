@@ -29,31 +29,33 @@ import {AntDesign, FontAwesome, Fontisto, MaterialIcons} from "@expo/vector-icon
 
 export type PostProps = {
     post: Post;
-    user:User;
-
-
-
 }
 
 const PostView = (props: PostProps) => {
-    const {user, post} = props;
+    const post = props;
     const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
+
     return(
         <View>
             <View style={styles.container}>
 
+
+
+
                 <Video
                     ref={video}
                     style={styles.video}
-                    source={{
-                        uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                    }}
+                    source={{ uri: post.post.video }}
                     useNativeControls
                     resizeMode="cover"
                     isLooping
                     onPlaybackStatusUpdate={status => setStatus(() => status)}
                 />
+
+
+
+
 
                 <TouchableOpacity style={styles.videopause} onPress={() =>
                     status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()}/>
@@ -71,15 +73,15 @@ const PostView = (props: PostProps) => {
 
 
                 <View style={styles.userHeaderContainer}>
-                    <Image source={{uri: 'https://static.wikia.nocookie.net/hip-hop-music/images/4/4f/J._Cole2.jpg/revision/latest?cb=20191206175314'}}
+                    <Image source={{ uri: post.post.user.imageUri }}
                            style={styles.profilePicture} />
                     <View>
                         <Text style={styles.name}>
-                            hey
+                            {post.post.user.username}
                         </Text>
 
                         <View style={{flexDirection: 'row'}}>
-                            <Text style={{marginLeft: 10, color: 'white'}} > hello this is my comment </Text>
+                            <Text style={{marginLeft: 10, color: 'white'}} > {post.post.description} </Text>
                             <View>
 
                             </View>
@@ -93,22 +95,22 @@ const PostView = (props: PostProps) => {
 
                     <TouchableOpacity style={styles.iconContainer}>
                         <AntDesign name={'heart'} size={40} />
-                        <Text style={styles.statsLabel}>100</Text>
+                        <Text style={styles.statsLabel}>{post.post.likes}</Text>
                     </TouchableOpacity>
 
                     <View style={styles.iconContainer}>
                         <FontAwesome name={'commenting'} size={40} color="white" />
-                        <Text style={styles.statsLabel}>100</Text>
+                        <Text style={styles.statsLabel}>{post.post.comments}</Text>
                     </View>
 
                     <View style={styles.iconContainer}>
                         <MaterialIcons name={'attach-money'} size={40} color="white" />
-                        <Text style={styles.statsLabel}>100</Text>
+                        <Text style={styles.statsLabel}>{post.post.tips}</Text>
                     </View>
 
                     <View style={styles.iconContainer}>
                         <Fontisto name={'share-a'} size={35} color="white" />
-                        <Text style={styles.statsLabel}>100</Text>
+                        <Text style={styles.statsLabel}>{post.post.shares}</Text>
                     </View>
                 </View>
 

@@ -3,11 +3,9 @@ import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
     container: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+
     },
     rowContainer: {
         flexDirection: "row",
@@ -52,6 +50,7 @@ const styles = StyleSheet.create({
 
 
     }
+
 })
 
 export default styles;

@@ -76,7 +76,7 @@ export type FleetType = {
 };
 
 export type Post = {
-  id: String,
+  id: string,
   createdAt: string,
   user: User,
   video: string,
@@ -84,6 +84,11 @@ export type Post = {
   type: string,
   text: string,
   imageUri: string,
+  likes: 100,
+  comments: 12,
+  shares: 44,
+  tips: 100,
+  description:string,
 };
 
 export type WhiteBalance = {

@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import {
+    Dimensions, FlatList,
     Text,
     View,
 } from "react-native";
@@ -9,14 +10,28 @@ import styles from "./styles"
 import posts from "../data/posts";
 import PostView from "../components/Post";
 import {User} from "../types";
+import {Post} from "../types";
+import userWithPost from "../data/posts";
+
 
 
 const PostViewsScreen = () => {
+    // const post = posts.find().user[1];
+
 
 
     return(
         <View>
-            <PostView user={{id: '3', name: 'blockchain', username: 'blockchain'}}/>
+            <FlatList
+                data={posts}
+                renderItem={({item}) => <PostView post={item} />}
+                showsVerticalScrollIndicator={false}
+                snapToInterval={Dimensions.get('window').height - 130}
+                snapToAlignment={'start'}
+                decelerationRate={'fast'}
+            />
+            <Text>Hey</Text>
+           //encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTApJdGN6I8NjFvhKfOBIwjz759q53b8HBckMLXl_blfq5RXZFy'}}/>
         </View>
     )
 }
