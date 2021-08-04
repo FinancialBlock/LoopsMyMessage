@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Dimensions,
     FlatList,
@@ -8,17 +8,30 @@ import {
 import FleetView from "../../components/FleetView";
 import userWithFleets from "../../data/userWithFleets";
 import styles from "./styles"
+import {API, graphqlOperation} from 'aws-amplify';
 import posts from "../data/posts";
 import Post from "../components/Post";
 import ContactListItem from "../components/ContactListItems";
 import usersdata from "../data/Users";
-
-
-
+import {listPosts} from "../src/graphql/queries";
 
 
 const PostScreen = () => {
     const post = posts[0];
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            // fetch all the posts
+            try {
+                const response = await API.graphql(graphqlOperation(listPosts));
+                setPosts(response.data.listPosts.items);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        fetchPost();
+    }, []);
 
 
     return(

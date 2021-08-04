@@ -73,7 +73,7 @@ const PostView = (props: PostProps) => {
 
 
                 <View style={styles.userHeaderContainer}>
-                    <Image source={{ uri: post.post.user.imageUri }}
+                    <Image source={{ uri: post.post.user.imageUri}}
                            style={styles.profilePicture} />
                     <View>
                         <Text style={styles.name}>
