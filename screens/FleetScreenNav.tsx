@@ -14,6 +14,8 @@ const FleetScreen = () => {
     const user = userWithFleets[0];
     const fleet = userWithFleets[0].fleets.items[1];
 
+
+
     return(
         <View>
             <FleetView user={user} fleet={fleet}/>

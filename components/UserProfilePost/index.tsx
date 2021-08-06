@@ -9,11 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {ChatRoom} from "../../types";
 import FleetProfile from "../FleetProfile";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
 const Tab = createMaterialTopTabNavigator();
-
-
-
 
 export type UserProfilePostProps = {
     post: Post;
@@ -29,7 +25,7 @@ const UserProfilePost = (props: UserProfilePostProps) => {
 
                 <ScrollView  horizontal={true} >
                     <View style={styles.postIcons}>
-                        <Image style={styles.postIcons} source={{uri: post.post.user}}/>
+                        <Image style={styles.postIcons} source={{uri: post.post.imageUri}}/>
                         <AntDesign style={styles.heartIcon} name="heart" size={24} color="red" />
 
 

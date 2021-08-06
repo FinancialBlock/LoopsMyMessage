@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Dimensions,
     FlatList,
@@ -17,7 +17,7 @@ import {listPosts} from "../src/graphql/queries";
 
 
 const PostScreen = () => {
-    const post = posts[0];
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         const fetchPost = async () => {

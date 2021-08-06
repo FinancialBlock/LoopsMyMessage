@@ -19,6 +19,7 @@ import UserProfileScreen from "../screens/UserProfileScreen";
 
 import PostView from "../components/Post";
 import PostScreen from "../screens/PostScreen";
+import CreatePost from "../screens/CreatePost";
 
 const BottomTab = createMaterialTopTabNavigator<BottomTabParamList>();
 
@@ -71,6 +72,12 @@ export default function BottomTabNavigator() {
         <BottomTab.Screen
             name="Post"
             component={PostScreen}
+
+        />
+
+        <BottomTab.Screen
+            name="CreatePost"
+            component={CreatePost}
 
         />
     </BottomTab.Navigator>

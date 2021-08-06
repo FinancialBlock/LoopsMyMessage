@@ -9,6 +9,8 @@ export const getUser = /* GraphQL */ `
       name
       username
       imageUri
+      description
+      background
       email
       status
       posts {
@@ -74,6 +76,8 @@ export const listUsers = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -108,6 +112,8 @@ export const getPost = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -156,6 +162,8 @@ export const listPosts = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -216,6 +224,8 @@ export const getChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -274,6 +284,8 @@ export const listChatRoomUsers = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -329,6 +341,8 @@ export const getChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -391,6 +405,8 @@ export const getMessage = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -450,6 +466,8 @@ export const listMessages = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -479,6 +497,8 @@ export const getTweet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -528,6 +548,8 @@ export const listTweets = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -556,6 +578,8 @@ export const getFleet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -596,6 +620,8 @@ export const listFleets = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -622,6 +648,8 @@ export const getProfileType = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -663,6 +691,8 @@ export const listProfileTypes = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -703,6 +733,8 @@ export const messagesByChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt

@@ -12,6 +12,7 @@ export type RootStackParamList = {
   Post: undefined;
   Messages: undefined;
   ProfileSettings: undefined;
+  CreatePost: undefined;
 
 };
 
@@ -21,6 +22,7 @@ export type BottomTabParamList = {
   Status: undefined;
   Calls: undefined;
   Post: undefined;
+  CreatePost: undefined;
 };
 
 export type CameraScreenList = {
@@ -41,6 +43,7 @@ export type User = {
   followers: string,
   following: string,
   loops: string,
+  background: string,
 };
 
 export type Message = {
@@ -79,7 +82,7 @@ export type Post = {
   id: string,
   createdAt: string,
   user: User,
-  video: string,
+  videoUri: string,
   song: string,
   type: string,
   text: string,

@@ -4,7 +4,7 @@ import Colors from "../../constants/Colors";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFF',
+        backgroundColor: 'black',
     },
     text: {
         fontFamily: 'HelveticaNeue',
@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
     titleBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 24,
-        marginHorizontal: 16,
         alignContent:"center",
         alignItems: "center",
+        backgroundColor: 'black',
+
     },
     subText: {
         fontSize: 12,

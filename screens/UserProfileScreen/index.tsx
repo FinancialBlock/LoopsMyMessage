@@ -1,21 +1,44 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, FlatList, Image} from "react-native";
-import UserProfile from "../components/UserProfile/UserProfile";
-import ChatListItem from "../components/ChatListItems";
-import usersdata from "../data/Users";
-import Users from "../data/Users";
-import ProfileTab from "../navigation/UserProfileTabs";
-import UserProfileFeed from "../components/UserProfileFeed";
-import UserProfilePost from "../components/UserProfilePost";
-import UselessTextInput from "../components/EditProfile";
-import EditProfileButton from "../components/EditProfileButton";
+import UserProfile from "../../components/UserProfile/UserProfile";
+import ChatListItem from "../../components/ChatListItems";
+import usersdata from "../../data/Users";
+import Users from "../../data/Users";
+import ProfileTab from "../../navigation/UserProfileTabs";
+import UserProfileFeed from "../../components/UserProfileFeed";
+import UserProfilePost from "../../components/UserProfilePost";
+import UselessTextInput from "../../components/EditProfile";
+import EditProfileButton from "../../components/EditProfileButton";
+import {API, Auth, graphqlOperation} from "aws-amplify";
+import {getUser} from "./queries";
 
 
 
 
-const UserProfileScreen = () => {
-    const user = usersdata[0];
-    const post = usersdata[0].imageUri;
+const Index = () => {
+    const [user, setUser] = useState([]);
+
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userInfo = await Auth.currentAuthenticatedUser();
+
+                const userData = await API.graphql(
+                    graphqlOperation(
+                        getUser, {
+                            id: userInfo.attributes.sub,
+                        }
+                    )
+                )
+
+                setUser(userData.data.getUser)
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        fetchUserData();
+    }, []);
 
 
 
@@ -30,7 +53,7 @@ return (
             keyExtractor={(item) => item.id}
         />*/}
         <UserProfile user={user}/>
-        <UserProfilePost user={user} post={post}   />
+
 
 
     </View>
@@ -179,4 +202,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default UserProfileScreen;
+export default Index;

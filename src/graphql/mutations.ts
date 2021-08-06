@@ -12,6 +12,8 @@ export const createUser = /* GraphQL */ `
       name
       username
       imageUri
+      description
+      background
       email
       status
       posts {
@@ -75,6 +77,8 @@ export const updateUser = /* GraphQL */ `
       name
       username
       imageUri
+      description
+      background
       email
       status
       posts {
@@ -138,6 +142,8 @@ export const deleteUser = /* GraphQL */ `
       name
       username
       imageUri
+      description
+      background
       email
       status
       posts {
@@ -207,6 +213,8 @@ export const createPost = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -253,6 +261,8 @@ export const updatePost = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -299,6 +309,8 @@ export const deletePost = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -385,6 +397,8 @@ export const createChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -441,6 +455,8 @@ export const updateChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -497,6 +513,8 @@ export const deleteChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -579,6 +597,8 @@ export const createChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -637,6 +657,8 @@ export const updateChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -695,6 +717,8 @@ export const deleteChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -729,6 +753,8 @@ export const createMessage = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -786,6 +812,8 @@ export const updateMessage = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -843,6 +871,8 @@ export const deleteMessage = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -899,6 +929,8 @@ export const createTweet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -946,6 +978,8 @@ export const updateTweet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -993,6 +1027,8 @@ export const deleteTweet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1041,6 +1077,8 @@ export const createFleet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1079,6 +1117,8 @@ export const updateFleet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1117,6 +1157,8 @@ export const deleteFleet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1153,6 +1195,8 @@ export const createLike = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1180,6 +1224,8 @@ export const createLike = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -1210,6 +1256,8 @@ export const updateLike = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1237,6 +1285,8 @@ export const updateLike = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -1267,6 +1317,8 @@ export const deleteLike = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1294,6 +1346,8 @@ export const deleteLike = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -1327,6 +1381,8 @@ export const createProfileType = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1366,6 +1422,8 @@ export const updateProfileType = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1405,6 +1463,8 @@ export const deleteProfileType = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {

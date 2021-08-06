@@ -19,6 +19,9 @@ export type UserProfileFeedProps = {
 }
 const UserProfileFeed = (props: UserProfileFeedProps) => {
     const [user, Post] = useState(props)
+
+
+
     return (
         <View>
             <ScrollView>
@@ -27,9 +30,9 @@ const UserProfileFeed = (props: UserProfileFeedProps) => {
 
             <ScrollView  horizontal={true} >
                 <View style={styles.postIcons}>
-                    <Image style={styles.postIcons} source={{uri: user.user.posts}}/>
+                    <Image style={styles.postIcons} source={{uri: user.post.imageUri}}/>
                     <AntDesign name="heart" size={24} color="blue" />
-                    <Image style={styles.postIcons} source={{uri: user.user.posts}}/>
+                    <Image style={styles.postIcons} source={{uri: user.post.videoUri}}/>
                     <Image style={styles.postIcons} source={{uri: user.user.posts}}/>
                     <Image style={styles.postIcons} source={{uri: user.user.posts}}/>
 

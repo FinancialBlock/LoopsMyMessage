@@ -3,10 +3,10 @@ export default [
         "id": "0",
         "imageUri": "https://decider.com/wp-content/uploads/2016/03/cult-corner-martin.jpg?quality=80&strip=all&w=646&h=431&crop=1",
         "name": "Vadim Savin",
-        "username": "Blockchainbt",
+        "username": "Blockchainb",
         "text": "Hey this this my story",
         "createdAt": "2020-09-04T12:05:39.955Z",
-        "posts": {
+        "post": {
             "items": [
                 {
                     "id": "0",

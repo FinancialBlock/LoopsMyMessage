@@ -47,8 +47,12 @@ function App() {
                 { id: userInfo.attributes.sub }
             )
         )
+        const getUserResponse = await API.graphql(
+            graphqlOperation(getUser, {id: userInfo.attributes.sub}),
+        );
 
-        if (userData.data.getUser) {
+
+        if (getUserResponse.data.getUser) {
           console.log("User is already registered in database");
           return;
         }
@@ -58,6 +62,8 @@ function App() {
           name: userInfo.username,
           imageUri: getRandomImage(),
           status: 'Hey, I am new to Loop lets get started!',
+          description: 'how to trade',
+
         }
 
         await API.graphql(

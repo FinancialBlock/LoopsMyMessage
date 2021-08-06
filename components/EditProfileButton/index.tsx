@@ -20,7 +20,7 @@ const EditProfileButton = () => {
                 <Entypo
                     name="dots-three-horizontal"
                     size={28}
-                    color="#52575D"
+                    color="white"
                     backgroundColor= "transparent"
                 />
             </TouchableOpacity>

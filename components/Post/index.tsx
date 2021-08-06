@@ -32,9 +32,22 @@ export type PostProps = {
 }
 
 const PostView = (props: PostProps) => {
-    const post = props;
+    const [post, setPost] = useState(props.post);
+    const [isLiked, setIsLiked] = useState(false);
     const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
+    console.log(post);
+    console.log(isLiked);
+
+    const onLikePress = () => {
+        const likesToAdd = isLiked ? -1 : 1;
+        setPost({
+            ...post,
+            likes: post.likes + likesToAdd,
+            /*likes: post.likes + likesToAdd,*/
+        });
+        setIsLiked(!isLiked);
+    };
 
     return(
         <View>
@@ -46,7 +59,7 @@ const PostView = (props: PostProps) => {
                 <Video
                     ref={video}
                     style={styles.video}
-                    source={{ uri: post.post.video }}
+                    source={{ uri: post.videoUri }}
                     useNativeControls
                     resizeMode="cover"
                     isLooping
@@ -73,15 +86,15 @@ const PostView = (props: PostProps) => {
 
 
                 <View style={styles.userHeaderContainer}>
-                    <Image source={{ uri: post.post.user.imageUri}}
+                    <Image source={{ uri: post.user.imageUri}}
                            style={styles.profilePicture} />
                     <View>
                         <Text style={styles.name}>
-                            {post.post.user.username}
+                            {post.user.username}
                         </Text>
 
                         <View style={{flexDirection: 'row'}}>
-                            <Text style={{marginLeft: 10, color: 'white'}} > {post.post.description} </Text>
+                            <Text style={{marginLeft: 10, color: 'white'}} > {post.description} </Text>
                             <View>
 
                             </View>
@@ -93,24 +106,24 @@ const PostView = (props: PostProps) => {
 
                 <View style={styles.bottomContainer}>
 
-                    <TouchableOpacity style={styles.iconContainer}>
-                        <AntDesign name={'heart'} size={40} />
-                        <Text style={styles.statsLabel}>{post.post.likes}</Text>
+                    <TouchableOpacity style={styles.iconContainer} onPress={onLikePress}>
+                        <AntDesign name={'heart'} size={40} color={isLiked ? 'red' : 'white'} />
+                        <Text style={styles.statsLabel}>{post.likes}</Text>
                     </TouchableOpacity>
 
                     <View style={styles.iconContainer}>
                         <FontAwesome name={'commenting'} size={40} color="white" />
-                        <Text style={styles.statsLabel}>{post.post.comments}</Text>
+                        <Text style={styles.statsLabel}>{post.comments}</Text>
                     </View>
 
                     <View style={styles.iconContainer}>
                         <MaterialIcons name={'attach-money'} size={40} color="white" />
-                        <Text style={styles.statsLabel}>{post.post.tips}</Text>
+                        <Text style={styles.statsLabel}>{post.tips}</Text>
                     </View>
 
                     <View style={styles.iconContainer}>
                         <Fontisto name={'share-a'} size={35} color="white" />
-                        <Text style={styles.statsLabel}>{post.post.shares}</Text>
+                        <Text style={styles.statsLabel}>{post.shares}</Text>
                     </View>
                 </View>
 

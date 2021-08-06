@@ -27,6 +27,7 @@ const FleetView = (props: FleetViewProps) => {
     return(
         <View style={styles.container}>
 
+
             {fleet.imageUri && <Image source={{ uri: fleet.imageUri}} style={styles.image}/>}
             <Text style={styles.text}>{fleet.text}</Text>
 

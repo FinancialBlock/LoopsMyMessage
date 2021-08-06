@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text, ImageBackground, ScrollView, SafeAreaView, TouchableOpacity, Image} from "react-native";
 import styles from "./styles";
-import {ProfileType, User} from "../../types";
+import {Post, ProfileType, User} from "../../types";
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -9,10 +9,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {ChatRoom} from "../../types";
 import FleetProfile from "../FleetProfile";
 import EditProfileButton from "../EditProfileButton";
+import {Video} from "expo-av";
 
 
 export type UserProfileProps = {
     user: User;
+    post: Post;
 
 }
 const UserProfile = (props:UserProfileProps) => {
@@ -23,27 +25,33 @@ const UserProfile = (props:UserProfileProps) => {
         description,
         followers,
         following,
+        background,
         loops,
-        post}}
+        }, post}
         = props;
+    const [status, setStatus] = React.useState({});
+    const video = React.useRef(null);
+
+
 
 
 
     return (
     <View>
         <ScrollView showsVerticalScrollIndicator={false}>
+
             <View>
-                {/*<Image style={styles.background} source={{ uri: imageUri }} />*/}
-
-
                     <View style={styles.titleBar}>
-                        <Entypo name="arrow-with-circle-left" size={24} color="#52575D" />
+                        <Entypo name="arrow-with-circle-left" size={24} color="white" />
                         <EditProfileButton/>
                     </View>
          {/*   <View>
                 <Image style={styles.background} source={{ uri: imageUri }} />
             </View>*/}
             </View>
+           {/* <View>
+                <Image style={styles.background} source={{uri: 'https://www.uidownload.com/files/864/934/332/abstract-background-with-modern-gradient.jpg'}}/>
+            </View>*/}
 
 
             <View style={{alignSelf: 'center'}}>
@@ -98,6 +106,7 @@ const UserProfile = (props:UserProfileProps) => {
                     <Text style={[styles.text, {fontSize: 24}]}>{post}</Text>
                     <Text style={[styles.text, styles.subText]}>Posts</Text>
                 </View>
+
                 <View
                     style={[
                         styles.statsBox,

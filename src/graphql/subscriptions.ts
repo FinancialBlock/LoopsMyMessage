@@ -9,6 +9,8 @@ export const onCreateUser = /* GraphQL */ `
       name
       username
       imageUri
+      description
+      background
       email
       status
       posts {
@@ -69,6 +71,8 @@ export const onUpdateUser = /* GraphQL */ `
       name
       username
       imageUri
+      description
+      background
       email
       status
       posts {
@@ -129,6 +133,8 @@ export const onDeleteUser = /* GraphQL */ `
       name
       username
       imageUri
+      description
+      background
       email
       status
       posts {
@@ -195,6 +201,8 @@ export const onCreatePost = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -238,6 +246,8 @@ export const onUpdatePost = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -281,6 +291,8 @@ export const onDeletePost = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -355,6 +367,8 @@ export const onCreateChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -408,6 +422,8 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -461,6 +477,8 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -540,6 +558,8 @@ export const onCreateChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -595,6 +615,8 @@ export const onUpdateChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -650,6 +672,8 @@ export const onDeleteChatRoom = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -681,6 +705,8 @@ export const onCreateMessage = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -735,6 +761,8 @@ export const onUpdateMessage = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -789,6 +817,8 @@ export const onDeleteMessage = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -842,6 +872,8 @@ export const onCreateTweet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -886,6 +918,8 @@ export const onUpdateTweet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -930,6 +964,8 @@ export const onDeleteTweet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -975,6 +1011,8 @@ export const onCreateFleet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1010,6 +1048,8 @@ export const onUpdateFleet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1045,6 +1085,8 @@ export const onDeleteFleet = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1078,6 +1120,8 @@ export const onCreateLike = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1105,6 +1149,8 @@ export const onCreateLike = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -1132,6 +1178,8 @@ export const onUpdateLike = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1159,6 +1207,8 @@ export const onUpdateLike = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -1186,6 +1236,8 @@ export const onDeleteLike = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1213,6 +1265,8 @@ export const onDeleteLike = /* GraphQL */ `
           name
           username
           imageUri
+          description
+          background
           email
           status
           createdAt
@@ -1243,6 +1297,8 @@ export const onCreateProfileType = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1279,6 +1335,8 @@ export const onUpdateProfileType = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
@@ -1315,6 +1373,8 @@ export const onDeleteProfileType = /* GraphQL */ `
         name
         username
         imageUri
+        description
+        background
         email
         status
         posts {
