@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, FlatList, Image} from "react-native";
+import {View, Text, StyleSheet, FlatList, Image, ScrollView} from "react-native";
 import UserProfile from "../../components/UserProfile/UserProfile";
 import ChatListItem from "../../components/ChatListItems";
 import usersdata from "../../data/Users";
@@ -11,12 +11,16 @@ import UselessTextInput from "../../components/EditProfile";
 import EditProfileButton from "../../components/EditProfileButton";
 import {API, Auth, graphqlOperation} from "aws-amplify";
 import {getUser} from "./queries";
+import posts from "../../data/posts";
+import UserProfilePostList from "../../components/UserProfilePostList";
+import UserProfilePhotosList from "../../components/UserProfilePhotosList";
 
 
 
 
 const Index = () => {
     const [user, setUser] = useState([]);
+    const post = posts[0];
 
 
     useEffect(() => {
@@ -52,7 +56,15 @@ return (
             renderItem={({ item }) => <UserProfile user={item} />}
             keyExtractor={(item) => item.id}
         />*/}
+        <ScrollView>
         <UserProfile user={user}/>
+
+
+        <UserProfilePostList post={post}/>
+
+      {/*  <UserProfilePhotosList post={post}/>*/}
+        </ScrollView>
+
 
 
 

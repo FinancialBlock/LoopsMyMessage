@@ -23,6 +23,7 @@ export type BottomTabParamList = {
   Calls: undefined;
   Post: undefined;
   CreatePost: undefined;
+  ExploreScreen: undefined;
 };
 
 export type CameraScreenList = {

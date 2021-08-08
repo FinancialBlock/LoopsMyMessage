@@ -45,13 +45,11 @@ const UserProfile = (props:UserProfileProps) => {
                         <Entypo name="arrow-with-circle-left" size={24} color="white" />
                         <EditProfileButton/>
                     </View>
-         {/*   <View>
-                <Image style={styles.background} source={{ uri: imageUri }} />
-            </View>*/}
+            <View>
+                <Image style={styles.background} source={{ uri: background }} />
             </View>
-           {/* <View>
-                <Image style={styles.background} source={{uri: 'https://www.uidownload.com/files/864/934/332/abstract-background-with-modern-gradient.jpg'}}/>
-            </View>*/}
+            </View>
+
 
 
             <View style={{alignSelf: 'center'}}>
@@ -59,7 +57,7 @@ const UserProfile = (props:UserProfileProps) => {
                     <Image style={styles.profileImage} source={{ uri: imageUri }} />
                 </View>
                 <View style={styles.dm}>
-                    <TouchableOpacity>
+                    <TouchableOpacity >
                         <MaterialIcons name="chat" size={18} color="#DFD8C8"  />
                     </TouchableOpacity>
                 </View>

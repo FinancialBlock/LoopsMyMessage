@@ -77,6 +77,7 @@ export type User = {
   email?: string | null,
   status?: string | null,
   posts?: ModelPostConnection | null,
+  postImages?: ModelPostImageConnection | null,
   tweets?: ModelTweetConnection | null,
   chatRoomUser?: ModelChatRoomUserConnection | null,
   fleets?: ModelFleetConnection | null,
@@ -109,6 +110,26 @@ export type Song = {
   id: string,
   name: string,
   imageUri?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelPostImageConnection = {
+  __typename: "ModelPostImageConnection",
+  items?:  Array<PostImage | null > | null,
+  nextToken?: string | null,
+};
+
+export type PostImage = {
+  __typename: "PostImage",
+  id: string,
+  videoUri?: string | null,
+  description: string,
+  imageUri?: string | null,
+  userID: string,
+  user?: User | null,
+  songID?: string | null,
+  song?: Song | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -297,6 +318,39 @@ export type UpdateSongInput = {
 };
 
 export type DeleteSongInput = {
+  id: string,
+};
+
+export type CreatePostImageInput = {
+  id?: string | null,
+  videoUri?: string | null,
+  description: string,
+  imageUri?: string | null,
+  userID: string,
+  songID?: string | null,
+};
+
+export type ModelPostImageConditionInput = {
+  videoUri?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  songID?: ModelIDInput | null,
+  and?: Array< ModelPostImageConditionInput | null > | null,
+  or?: Array< ModelPostImageConditionInput | null > | null,
+  not?: ModelPostImageConditionInput | null,
+};
+
+export type UpdatePostImageInput = {
+  id: string,
+  videoUri?: string | null,
+  description?: string | null,
+  imageUri?: string | null,
+  userID?: string | null,
+  songID?: string | null,
+};
+
+export type DeletePostImageInput = {
   id: string,
 };
 
@@ -549,6 +603,18 @@ export type ModelSongConnection = {
   nextToken?: string | null,
 };
 
+export type ModelPostImageFilterInput = {
+  id?: ModelIDInput | null,
+  videoUri?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  imageUri?: ModelStringInput | null,
+  userID?: ModelIDInput | null,
+  songID?: ModelIDInput | null,
+  and?: Array< ModelPostImageFilterInput | null > | null,
+  or?: Array< ModelPostImageFilterInput | null > | null,
+  not?: ModelPostImageFilterInput | null,
+};
+
 export type ModelChatRoomUserFilterInput = {
   id?: ModelIDInput | null,
   userID?: ModelIDInput | null,
@@ -669,6 +735,21 @@ export type CreateUserMutation = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    postImages?:  {
+      __typename: "ModelPostImageConnection",
+      items?:  Array< {
+        __typename: "PostImage",
+        id: string,
+        videoUri?: string | null,
+        description: string,
+        imageUri?: string | null,
+        userID: string,
+        songID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
@@ -733,6 +814,21 @@ export type UpdateUserMutation = {
       __typename: "ModelPostConnection",
       items?:  Array< {
         __typename: "Post",
+        id: string,
+        videoUri?: string | null,
+        description: string,
+        imageUri?: string | null,
+        userID: string,
+        songID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    postImages?:  {
+      __typename: "ModelPostImageConnection",
+      items?:  Array< {
+        __typename: "PostImage",
         id: string,
         videoUri?: string | null,
         description: string,
@@ -819,6 +915,21 @@ export type DeleteUserMutation = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    postImages?:  {
+      __typename: "ModelPostImageConnection",
+      items?:  Array< {
+        __typename: "PostImage",
+        id: string,
+        videoUri?: string | null,
+        description: string,
+        imageUri?: string | null,
+        userID: string,
+        songID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
@@ -890,6 +1001,10 @@ export type CreatePostMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -946,6 +1061,10 @@ export type UpdatePostMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1000,6 +1119,10 @@ export type DeletePostMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -1079,6 +1202,186 @@ export type DeleteSongMutation = {
   } | null,
 };
 
+export type CreatePostImageMutationVariables = {
+  input: CreatePostImageInput,
+  condition?: ModelPostImageConditionInput | null,
+};
+
+export type CreatePostImageMutation = {
+  createPostImage?:  {
+    __typename: "PostImage",
+    id: string,
+    videoUri?: string | null,
+    description: string,
+    imageUri?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      description?: string | null,
+      background?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID?: string | null,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdatePostImageMutationVariables = {
+  input: UpdatePostImageInput,
+  condition?: ModelPostImageConditionInput | null,
+};
+
+export type UpdatePostImageMutation = {
+  updatePostImage?:  {
+    __typename: "PostImage",
+    id: string,
+    videoUri?: string | null,
+    description: string,
+    imageUri?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      description?: string | null,
+      background?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID?: string | null,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeletePostImageMutationVariables = {
+  input: DeletePostImageInput,
+  condition?: ModelPostImageConditionInput | null,
+};
+
+export type DeletePostImageMutation = {
+  deletePostImage?:  {
+    __typename: "PostImage",
+    id: string,
+    videoUri?: string | null,
+    description: string,
+    imageUri?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      description?: string | null,
+      background?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID?: string | null,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type CreateChatRoomUserMutationVariables = {
   input: CreateChatRoomUserInput,
   condition?: ModelChatRoomUserConditionInput | null,
@@ -1102,6 +1405,10 @@ export type CreateChatRoomUserMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -1173,6 +1480,10 @@ export type UpdateChatRoomUserMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1240,6 +1551,10 @@ export type DeleteChatRoomUserMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -1520,6 +1835,10 @@ export type CreateMessageMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1588,6 +1907,10 @@ export type UpdateMessageMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -1660,6 +1983,10 @@ export type DeleteMessageMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1729,6 +2056,10 @@ export type CreateTweetMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1787,6 +2118,10 @@ export type UpdateTweetMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1843,6 +2178,10 @@ export type DeleteTweetMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -1904,6 +2243,10 @@ export type CreateFleetMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -1949,6 +2292,10 @@ export type UpdateFleetMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -1998,6 +2345,10 @@ export type DeleteFleetMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2041,6 +2392,10 @@ export type CreateLikeMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -2114,6 +2469,10 @@ export type UpdateLikeMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2183,6 +2542,10 @@ export type DeleteLikeMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -2259,6 +2622,10 @@ export type CreateProfileTypeMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2305,6 +2672,10 @@ export type UpdateProfileTypeMutation = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -2355,6 +2726,10 @@ export type DeleteProfileTypeMutation = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2394,6 +2769,21 @@ export type GetUserQuery = {
       __typename: "ModelPostConnection",
       items?:  Array< {
         __typename: "Post",
+        id: string,
+        videoUri?: string | null,
+        description: string,
+        imageUri?: string | null,
+        userID: string,
+        songID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    postImages?:  {
+      __typename: "ModelPostImageConnection",
+      items?:  Array< {
+        __typename: "PostImage",
         id: string,
         videoUri?: string | null,
         description: string,
@@ -2472,6 +2862,10 @@ export type ListUsersQuery = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2515,6 +2909,10 @@ export type GetPostQuery = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -2627,6 +3025,110 @@ export type ListSongsQuery = {
   } | null,
 };
 
+export type GetPostImageQueryVariables = {
+  id: string,
+};
+
+export type GetPostImageQuery = {
+  getPostImage?:  {
+    __typename: "PostImage",
+    id: string,
+    videoUri?: string | null,
+    description: string,
+    imageUri?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      description?: string | null,
+      background?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID?: string | null,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListPostImagesQueryVariables = {
+  filter?: ModelPostImageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListPostImagesQuery = {
+  listPostImages?:  {
+    __typename: "ModelPostImageConnection",
+    items?:  Array< {
+      __typename: "PostImage",
+      id: string,
+      videoUri?: string | null,
+      description: string,
+      imageUri?: string | null,
+      userID: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        username?: string | null,
+        imageUri?: string | null,
+        description?: string | null,
+        background?: string | null,
+        email?: string | null,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      songID?: string | null,
+      song?:  {
+        __typename: "Song",
+        id: string,
+        name: string,
+        imageUri?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetChatRoomUserQueryVariables = {
   id: string,
 };
@@ -2649,6 +3151,10 @@ export type GetChatRoomUserQuery = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -2867,6 +3373,10 @@ export type GetMessageQuery = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -2977,6 +3487,10 @@ export type GetTweetQuery = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3074,6 +3588,10 @@ export type GetFleetQuery = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3155,6 +3673,10 @@ export type GetProfileTypeQuery = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -3285,6 +3807,21 @@ export type OnCreateUserSubscription = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    postImages?:  {
+      __typename: "ModelPostImageConnection",
+      items?:  Array< {
+        __typename: "PostImage",
+        id: string,
+        videoUri?: string | null,
+        description: string,
+        imageUri?: string | null,
+        userID: string,
+        songID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
@@ -3344,6 +3881,21 @@ export type OnUpdateUserSubscription = {
       __typename: "ModelPostConnection",
       items?:  Array< {
         __typename: "Post",
+        id: string,
+        videoUri?: string | null,
+        description: string,
+        imageUri?: string | null,
+        userID: string,
+        songID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    postImages?:  {
+      __typename: "ModelPostImageConnection",
+      items?:  Array< {
+        __typename: "PostImage",
         id: string,
         videoUri?: string | null,
         description: string,
@@ -3425,6 +3977,21 @@ export type OnDeleteUserSubscription = {
       } | null > | null,
       nextToken?: string | null,
     } | null,
+    postImages?:  {
+      __typename: "ModelPostImageConnection",
+      items?:  Array< {
+        __typename: "PostImage",
+        id: string,
+        videoUri?: string | null,
+        description: string,
+        imageUri?: string | null,
+        userID: string,
+        songID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
     tweets?:  {
       __typename: "ModelTweetConnection",
       items?:  Array< {
@@ -3491,6 +4058,10 @@ export type OnCreatePostSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3542,6 +4113,10 @@ export type OnUpdatePostSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3591,6 +4166,10 @@ export type OnDeletePostSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -3655,6 +4234,171 @@ export type OnDeleteSongSubscription = {
   } | null,
 };
 
+export type OnCreatePostImageSubscription = {
+  onCreatePostImage?:  {
+    __typename: "PostImage",
+    id: string,
+    videoUri?: string | null,
+    description: string,
+    imageUri?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      description?: string | null,
+      background?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID?: string | null,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdatePostImageSubscription = {
+  onUpdatePostImage?:  {
+    __typename: "PostImage",
+    id: string,
+    videoUri?: string | null,
+    description: string,
+    imageUri?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      description?: string | null,
+      background?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID?: string | null,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeletePostImageSubscription = {
+  onDeletePostImage?:  {
+    __typename: "PostImage",
+    id: string,
+    videoUri?: string | null,
+    description: string,
+    imageUri?: string | null,
+    userID: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      username?: string | null,
+      imageUri?: string | null,
+      description?: string | null,
+      background?: string | null,
+      email?: string | null,
+      status?: string | null,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
+      tweets?:  {
+        __typename: "ModelTweetConnection",
+        nextToken?: string | null,
+      } | null,
+      chatRoomUser?:  {
+        __typename: "ModelChatRoomUserConnection",
+        nextToken?: string | null,
+      } | null,
+      fleets?:  {
+        __typename: "ModelFleetConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    songID?: string | null,
+    song?:  {
+      __typename: "Song",
+      id: string,
+      name: string,
+      imageUri?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type OnCreateChatRoomUserSubscription = {
   onCreateChatRoomUser?:  {
     __typename: "ChatRoomUser",
@@ -3673,6 +4417,10 @@ export type OnCreateChatRoomUserSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -3739,6 +4487,10 @@ export type OnUpdateChatRoomUserSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -3801,6 +4553,10 @@ export type OnDeleteChatRoomUserSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -4061,6 +4817,10 @@ export type OnCreateMessageSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4124,6 +4884,10 @@ export type OnUpdateMessageSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -4191,6 +4955,10 @@ export type OnDeleteMessageSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4255,6 +5023,10 @@ export type OnCreateTweetSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4308,6 +5080,10 @@ export type OnUpdateTweetSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4359,6 +5135,10 @@ export type OnDeleteTweetSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -4415,6 +5195,10 @@ export type OnCreateFleetSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4455,6 +5239,10 @@ export type OnUpdateFleetSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -4499,6 +5287,10 @@ export type OnDeleteFleetSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4537,6 +5329,10 @@ export type OnCreateLikeSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -4605,6 +5401,10 @@ export type OnUpdateLikeSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4669,6 +5469,10 @@ export type OnDeleteLikeSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {
@@ -4740,6 +5544,10 @@ export type OnCreateProfileTypeSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4783,6 +5591,10 @@ export type OnUpdateProfileTypeSubscription = {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
+        nextToken?: string | null,
+      } | null,
       tweets?:  {
         __typename: "ModelTweetConnection",
         nextToken?: string | null,
@@ -4824,6 +5636,10 @@ export type OnDeleteProfileTypeSubscription = {
       status?: string | null,
       posts?:  {
         __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      postImages?:  {
+        __typename: "ModelPostImageConnection",
         nextToken?: string | null,
       } | null,
       tweets?:  {

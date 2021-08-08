@@ -32,12 +32,13 @@ const styles = StyleSheet.create({
     profileImage: {
         width: 105,
         height: 120,
-        marginTop: 10,
+        marginTop: 100,
         borderRadius: 30,
         padding: 15,
         alignItems: 'center',
         borderWidth: 3,
         borderColor: '#449bd4',
+
 
 
 
@@ -151,9 +152,7 @@ const styles = StyleSheet.create({
     },
     background: {
         width: '100%',
-
-        height: 200,
-
+        height: 150,
         overflow: 'hidden',
         position: 'absolute',
 

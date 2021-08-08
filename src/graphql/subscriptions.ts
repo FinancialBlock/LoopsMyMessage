@@ -26,6 +26,19 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      postImages {
+        items {
+          id
+          videoUri
+          description
+          imageUri
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
@@ -76,6 +89,19 @@ export const onUpdateUser = /* GraphQL */ `
       email
       status
       posts {
+        items {
+          id
+          videoUri
+          description
+          imageUri
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      postImages {
         items {
           id
           videoUri
@@ -150,6 +176,19 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      postImages {
+        items {
+          id
+          videoUri
+          description
+          imageUri
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
@@ -208,6 +247,9 @@ export const onCreatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -253,6 +295,9 @@ export const onUpdatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -296,6 +341,9 @@ export const onDeletePost = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -356,6 +404,150 @@ export const onDeleteSong = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePostImage = /* GraphQL */ `
+  subscription OnCreatePostImage {
+    onCreatePostImage {
+      id
+      videoUri
+      description
+      imageUri
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        description
+        background
+        email
+        status
+        posts {
+          nextToken
+        }
+        postImages {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePostImage = /* GraphQL */ `
+  subscription OnUpdatePostImage {
+    onUpdatePostImage {
+      id
+      videoUri
+      description
+      imageUri
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        description
+        background
+        email
+        status
+        posts {
+          nextToken
+        }
+        postImages {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePostImage = /* GraphQL */ `
+  subscription OnDeletePostImage {
+    onDeletePostImage {
+      id
+      videoUri
+      description
+      imageUri
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        description
+        background
+        email
+        status
+        posts {
+          nextToken
+        }
+        postImages {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateChatRoomUser = /* GraphQL */ `
   subscription OnCreateChatRoomUser {
     onCreateChatRoomUser {
@@ -372,6 +564,9 @@ export const onCreateChatRoomUser = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -429,6 +624,9 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -482,6 +680,9 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -712,6 +913,9 @@ export const onCreateMessage = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -766,6 +970,9 @@ export const onUpdateMessage = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -824,6 +1031,9 @@ export const onDeleteMessage = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -879,6 +1089,9 @@ export const onCreateTweet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -925,6 +1138,9 @@ export const onUpdateTweet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -969,6 +1185,9 @@ export const onDeleteTweet = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1018,6 +1237,9 @@ export const onCreateFleet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1053,6 +1275,9 @@ export const onUpdateFleet = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1092,6 +1317,9 @@ export const onDeleteFleet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1125,6 +1353,9 @@ export const onCreateLike = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1185,6 +1416,9 @@ export const onUpdateLike = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1241,6 +1475,9 @@ export const onDeleteLike = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1304,6 +1541,9 @@ export const onCreateProfileType = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1342,6 +1582,9 @@ export const onUpdateProfileType = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1378,6 +1621,9 @@ export const onDeleteProfileType = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {

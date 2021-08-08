@@ -26,6 +26,19 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      postImages {
+        items {
+          id
+          videoUri
+          description
+          imageUri
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
@@ -83,6 +96,9 @@ export const listUsers = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -117,6 +133,9 @@ export const getPost = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -213,6 +232,94 @@ export const listSongs = /* GraphQL */ `
     }
   }
 `;
+export const getPostImage = /* GraphQL */ `
+  query GetPostImage($id: ID!) {
+    getPostImage(id: $id) {
+      id
+      videoUri
+      description
+      imageUri
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        description
+        background
+        email
+        status
+        posts {
+          nextToken
+        }
+        postImages {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPostImages = /* GraphQL */ `
+  query ListPostImages(
+    $filter: ModelPostImageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        videoUri
+        description
+        imageUri
+        userID
+        user {
+          id
+          name
+          username
+          imageUri
+          description
+          background
+          email
+          status
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getChatRoomUser = /* GraphQL */ `
   query GetChatRoomUser($id: ID!) {
     getChatRoomUser(id: $id) {
@@ -229,6 +336,9 @@ export const getChatRoomUser = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -412,6 +522,9 @@ export const getMessage = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -504,6 +617,9 @@ export const getTweet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -585,6 +701,9 @@ export const getFleet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -653,6 +772,9 @@ export const getProfileType = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {

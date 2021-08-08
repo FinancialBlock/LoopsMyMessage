@@ -8,6 +8,7 @@ type User @model {
   email: String
   status: String
   posts: [Post] @connection(keyName: "byUser", fields: ["id"])
+  postImages: [PostImage] @connection(keyName: "byUser", fields: ["id"])
   tweets: [Tweet] @connection(keyName: "byUser", fields: ["id"])
   chatRoomUser: [ChatRoomUser] @connection(keyName: "byUser", fields: ["id"])
   fleets: [Fleet] @connection(keyName: "byUser", fields: ["id"])
@@ -30,6 +31,19 @@ type Song @model {
   id: ID!
   name: String!
   imageUri: String
+}
+
+type PostImage @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  videoUri: String
+  description: String!
+  imageUri: String
+
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+
+  songID: ID
+  song: Song @connection(fields: ["songID"])
 }
 
 type ChatRoomUser

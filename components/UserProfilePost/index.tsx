@@ -9,6 +9,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {ChatRoom} from "../../types";
 import FleetProfile from "../FleetProfile";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {Video} from "expo-av";
+import {FontAwesome, Fontisto} from "@expo/vector-icons";
 const Tab = createMaterialTopTabNavigator();
 
 export type UserProfilePostProps = {
@@ -16,29 +18,55 @@ export type UserProfilePostProps = {
 
 }
 const UserProfilePost = (props: UserProfilePostProps) => {
-    const [post] = useState(props)
+    const [post, setPost] = useState(props.post);
+    const [isLiked, setIsLiked] = useState(false);
+    const video = React.useRef(null);
+    const [status, setStatus] = React.useState({});
+    const onLikePress = () => {
+        const likesToAdd = isLiked ? -1 : 1;
+        setPost({
+            ...post,
+            likes: post.likes + likesToAdd,
+            /*likes: post.likes + likesToAdd,*/
+        });
+        setIsLiked(!isLiked);
+    };
     return (
-        <View>
-            <ScrollView>
 
-                <Text style={styles.headerText}> Post </Text>
+    <View >
+        <View style={styles.container}>
 
-                <ScrollView  horizontal={true} >
-                    <View style={styles.postIcons}>
-                        <Image style={styles.postIcons} source={{uri: post.post.imageUri}}/>
-                        <AntDesign style={styles.heartIcon} name="heart" size={24} color="red" />
+            <Video
+                ref={video}
+                style={styles.video}
+                source={{ uri: props.post.videoUri }}
+                useNativeControls
+                resizeMode= "cover"
+                isLooping
+                onPlaybackStatusUpdate={status => setStatus(() => status)}
+            />
+            <TouchableOpacity style={styles.videopause} onPress={() =>
+                status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()}/>
+
+            <Text style={styles.bottomContainer}>{props.post.description}</Text>
+            <View>
+
+                <TouchableOpacity style={{ width: 30, height: 30 }} onPress={onLikePress}>
+                    <AntDesign name={'heart'} size={30}  color={isLiked ? 'red' : 'white'} />
+
+                </TouchableOpacity>
+            </View>
 
 
 
-                    </View>
-                </ScrollView>
 
 
 
-            </ScrollView>
+
 
 
         </View>
+    </View>
     )
 }
 

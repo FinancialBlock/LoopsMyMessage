@@ -38,6 +38,7 @@ const PostView = (props: PostProps) => {
     const [status, setStatus] = React.useState({});
     console.log(post);
     console.log(isLiked);
+    console.log(video)
 
     const onLikePress = () => {
         const likesToAdd = isLiked ? -1 : 1;

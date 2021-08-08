@@ -1,38 +1,54 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, Image, FlatList} from "react-native";
+import {
+    Dimensions,
+    FlatList,
+    Text,
+    View,
+} from "react-native";
+import FleetView from "../../components/FleetView";
+import userWithFleets from "../../data/userWithFleets";
+import styles from "./styles"
+import {API, graphqlOperation} from 'aws-amplify';
+import posts from "../../data/posts";
+import Post from "../../components/Post";
+import ContactListItem from "../components/ContactListItems";
+import usersdata from "../../data/Users";
+import {listPosts} from "../../src/graphql/queries";
 import UserProfilePost from "../UserProfilePost";
 
-import styles from "./styles"
-import {API, graphqlOperation} from "aws-amplify";
-import {listPost} from './queries';
 
 const UserProfilePostList = () => {
+    const [posts, setPosts] = useState([]);
 
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchPost = async () => {
+            // fetch all the posts
             try {
-                const data = await API.graphql(graphqlOperation(listUsers));
-                setUsers(data.data.listUsers.items);
-            } catch (e) {console.log(e)
+                const response = await API.graphql(graphqlOperation(listPosts));
+                setPosts(response.data.listPosts.items);
+            } catch (e) {
+                console.error(e);
             }
-        }
-        fetchData();
-    }, [])
+        };
 
+        fetchPost();
+    }, []);
 
 
     return(
         <View>
+            <Text style={styles.PostTitle}>Post</Text>
+
+
             <FlatList
+                data={posts}
+                renderItem={({item}) => <UserProfilePost post={item}  />}
                 horizontal={true}
-                data={users}
-                renderItem={({item}) => <UserProfilePost user={item}
-                showsHorizontalScrollIndicator={false}
-                />}
+                snapToAlignment={'start'}
+                decelerationRate={'fast'}
             />
-            <Text style={styles.showallstories}> Show All Stories </Text>
+
         </View>
     )
 }

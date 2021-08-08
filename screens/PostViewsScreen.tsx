@@ -30,8 +30,7 @@ const PostViewsScreen = () => {
                 snapToAlignment={'start'}
                 decelerationRate={'fast'}
             />
-            <Text>Hey</Text>
-           //encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTApJdGN6I8NjFvhKfOBIwjz759q53b8HBckMLXl_blfq5RXZFy'}}/>
+
         </View>
     )
 }

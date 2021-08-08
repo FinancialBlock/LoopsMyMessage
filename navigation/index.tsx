@@ -20,6 +20,8 @@ import ChatRoomScreens from "../screens/ChatRoom";
 import ContactScreen from "../screens/ContactScreen";
 import FleetScreen from "../screens/FleetScreen";
 import UselessTextInput from "../components/EditProfile";
+import ExploreScreen from "../screens/ExploreScreen";
+import CreatePost from "../screens/CreatePost";
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -111,6 +113,12 @@ function RootNavigator() {
             component={UselessTextInput}
 
         />
+        <Stack.Screen
+            name="CreatePost"
+            component={CreatePost}
+
+        />
+
 
         <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>

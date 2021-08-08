@@ -29,6 +29,19 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      postImages {
+        items {
+          id
+          videoUri
+          description
+          imageUri
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
@@ -82,6 +95,19 @@ export const updateUser = /* GraphQL */ `
       email
       status
       posts {
+        items {
+          id
+          videoUri
+          description
+          imageUri
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      postImages {
         items {
           id
           videoUri
@@ -159,6 +185,19 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      postImages {
+        items {
+          id
+          videoUri
+          description
+          imageUri
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       tweets {
         items {
           id
@@ -220,6 +259,9 @@ export const createPost = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -268,6 +310,9 @@ export const updatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -314,6 +359,9 @@ export const deletePost = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -383,6 +431,159 @@ export const deleteSong = /* GraphQL */ `
     }
   }
 `;
+export const createPostImage = /* GraphQL */ `
+  mutation CreatePostImage(
+    $input: CreatePostImageInput!
+    $condition: ModelPostImageConditionInput
+  ) {
+    createPostImage(input: $input, condition: $condition) {
+      id
+      videoUri
+      description
+      imageUri
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        description
+        background
+        email
+        status
+        posts {
+          nextToken
+        }
+        postImages {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePostImage = /* GraphQL */ `
+  mutation UpdatePostImage(
+    $input: UpdatePostImageInput!
+    $condition: ModelPostImageConditionInput
+  ) {
+    updatePostImage(input: $input, condition: $condition) {
+      id
+      videoUri
+      description
+      imageUri
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        description
+        background
+        email
+        status
+        posts {
+          nextToken
+        }
+        postImages {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePostImage = /* GraphQL */ `
+  mutation DeletePostImage(
+    $input: DeletePostImageInput!
+    $condition: ModelPostImageConditionInput
+  ) {
+    deletePostImage(input: $input, condition: $condition) {
+      id
+      videoUri
+      description
+      imageUri
+      userID
+      user {
+        id
+        name
+        username
+        imageUri
+        description
+        background
+        email
+        status
+        posts {
+          nextToken
+        }
+        postImages {
+          nextToken
+        }
+        tweets {
+          nextToken
+        }
+        chatRoomUser {
+          nextToken
+        }
+        fleets {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createChatRoomUser = /* GraphQL */ `
   mutation CreateChatRoomUser(
     $input: CreateChatRoomUserInput!
@@ -402,6 +603,9 @@ export const createChatRoomUser = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -462,6 +666,9 @@ export const updateChatRoomUser = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -518,6 +725,9 @@ export const deleteChatRoomUser = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -760,6 +970,9 @@ export const createMessage = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -817,6 +1030,9 @@ export const updateMessage = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -878,6 +1094,9 @@ export const deleteMessage = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -936,6 +1155,9 @@ export const createTweet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -985,6 +1207,9 @@ export const updateTweet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1032,6 +1257,9 @@ export const deleteTweet = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1084,6 +1312,9 @@ export const createFleet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1122,6 +1353,9 @@ export const updateFleet = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1164,6 +1398,9 @@ export const deleteFleet = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1200,6 +1437,9 @@ export const createLike = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1263,6 +1503,9 @@ export const updateLike = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1322,6 +1565,9 @@ export const deleteLike = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
@@ -1388,6 +1634,9 @@ export const createProfileType = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1429,6 +1678,9 @@ export const updateProfileType = /* GraphQL */ `
         posts {
           nextToken
         }
+        postImages {
+          nextToken
+        }
         tweets {
           nextToken
         }
@@ -1468,6 +1720,9 @@ export const deleteProfileType = /* GraphQL */ `
         email
         status
         posts {
+          nextToken
+        }
+        postImages {
           nextToken
         }
         tweets {
